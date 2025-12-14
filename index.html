@@ -3,486 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PIX FOTOSTUDIO | Professional Photography Balingen</title>
-    <meta name="description" content="Ihr Experte für Business-Portraits, hochwertige Bewerbungsfotos und Mitarbeiter-Shootings in Balingen. Irene Ilter.">
+    <title>PIX FOTOSTUDIO | Irene Ilter - Fotografie mit Seele</title>
+    <meta name="description" content="Ihr Fotostudio in Balingen für authentische Portraits, Bewerbungsfotos und Businessfotografie in entspannter Atmosphäre. Wir nehmen uns Zeit für Sie.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
-        /* --- VARIABLES & SETUP --- */
+        /* --- ORGANIC LUXURY VARIABLES --- */
         :root {
-            --bg: #080808;
-            --surface: #121212;
-            --surface-hover: #1a1a1a;
-            --txt: #ffffff;
-            --txt-dim: #9ca3af;
-            --accent: #3b82f6;
-            --accent-dark: #1d4ed8;
-            --border: rgba(255,255,255,0.08);
+            /* Warme, tiefe Töne statt hartem Schwarz */
+            --bg-main: #1a1816; /* Sehr tiefes, warmes Braun/Grau */
+            --bg-surface: #24211f; 
+            --txt-light: #f0eadd; /* Cremeweiß */
+            --txt-muted: #b0aaa0; /* Warmes Grau */
+            --accent: #d4af37; /* Sanftes Gold/Messing */
+            --accent-soft: rgba(212, 175, 55, 0.2);
             
-            --font-head: 'Syncopate', sans-serif;
-            --font-body: 'Inter', sans-serif;
+            --font-display: 'Cinzel Decorative', serif;
+            --font-body: 'Jost', sans-serif;
+            
+            --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+            --radius: 12px; /* Weiche Ecken */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html.lenis { height: auto; }
+        html.lenis { height: auto; } /* Smooth Scroll Fix */
         
         body {
-            background-color: var(--bg); color: var(--txt); font-family: var(--font-body);
-            overflow-x: hidden; -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-main);
+            color: var(--txt-light);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.7;
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; line-height: 1.2; }
-        h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; letter-spacing: -1px; }
-        h2 { font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 20px; }
-        h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: 1px; }
-        p { color: var(--txt-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 15px; }
+        /* --- TYPOGRAPHY WARMTH --- */
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 1px; color: var(--txt-light); }
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.2; }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 25px; position: relative; display: inline-block; }
+        /* Kleiner Gold-Akzent unter Überschriften */
+        h2::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 40px; height: 2px; background: var(--accent); }
         
-        .accent { color: var(--accent); }
-        .overline { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--accent); font-weight: 600; display: block; margin-bottom: 15px; }
+        h3 { font-size: 1.3rem; margin-bottom: 15px; color: var(--accent); }
+        p { color: var(--txt-muted); margin-bottom: 20px; font-weight: 300; font-size: 1.05rem; max-width: 700px; }
+        
+        .sub-heading { font-family: var(--font-body); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--accent); margin-bottom: 15px; display: block; font-weight: 500; }
 
-        /* --- UI ELEMENTS --- */
-        .btn {
-            display: inline-flex; justify-content: center; align-items: center; padding: 16px 32px;
-            background: white; color: black; font-family: var(--font-head); font-weight: 700;
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-            transition: 0.3s; border: 1px solid white;
-        }
-        .btn:hover { background: transparent; color: white; }
-        .btn.outline { background: transparent; color: white; border-color: rgba(255,255,255,0.3); }
-        .btn.outline:hover { border-color: white; }
-
-        .container { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        /* --- UI ELEMENTS (SOFT) --- */
+        .container { width: 90%; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2; }
         .section-pad { padding: 120px 0; }
 
-        /* --- HEADER --- */
+        .btn {
+            display: inline-block; padding: 15px 35px;
+            background: transparent; border: 1px solid var(--accent);
+            color: var(--accent); font-family: var(--font-body); text-transform: uppercase;
+            letter-spacing: 2px; font-size: 0.75rem; text-decoration: none;
+            transition: 0.4s var(--ease-soft); border-radius: 30px; /* Runde Buttons */
+            position: relative; overflow: hidden;
+        }
+        .btn:hover { background: var(--accent); color: var(--bg-main); box-shadow: 0 5px 20px var(--accent-soft); }
+        .btn.filled { background: var(--accent); color: var(--bg-main); }
+        .btn.filled:hover { background: transparent; color: var(--accent); }
+
+        /* --- WEBGL FLUID BACKGROUND --- */
+        #webgl-fluid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.6;
+            /* Fallback Gradient falls JS nicht lädt */
+            background: radial-gradient(circle at center, #3a3633 0%, var(--bg-main) 70%);
+        }
+
+        /* --- HEADER (ELEGANT) --- */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(8,8,8,0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            padding: 25px 5%; display: flex; justify-content: space-between; align-items: center;
+            transition: 0.4s var(--ease-soft);
         }
-        .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; letter-spacing: -1px; }
+        header.scrolled { background: rgba(26, 24, 22, 0.95); backdrop-filter: blur(10px); padding: 15px 5%; }
         
-        nav a { margin-left: 30px; color: var(--txt-dim); text-decoration: none; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s; }
-        nav a:hover, nav a.active { color: white; }
-        .burger { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
-
-        /* --- HERO --- */
-        .hero { height: 100vh; position: relative; }
-        .hero-slide { height: 100%; width: 100%; position: relative; display: flex; align-items: center; }
-        .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.5); transform: scale(1.1); transition: transform 2s ease;
-        }
-        .swiper-slide-active .hero-bg { transform: scale(1); }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--txt-light); }
+        .logo span { color: var(--accent); }
         
-        .hero-content { position: relative; z-index: 10; padding: 0 5%; max-width: 800px; }
-        .hero-tags { display: flex; gap: 15px; margin-bottom: 20px; }
-        .tag { padding: 5px 10px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; }
+        nav { display: flex; gap: 35px; }
+        nav a { color: var(--txt-muted); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; position: relative; }
+        nav a::after { content:''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 1px; background: var(--accent); transition: 0.3s; transform: translateX(-50%); }
+        nav a:hover, nav a.active { color: var(--accent); }
+        nav a:hover::after { width: 80%; }
+        .burger { display: none; color: var(--txt-light); font-size: 1.3rem; cursor: pointer; }
 
-        /* --- ABOUT (IRENE) --- */
-        .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-img { position: relative; }
-        .about-img img { width: 100%; border-radius: 4px; filter: grayscale(100%); transition: 0.5s; }
-        .about-img:hover img { filter: grayscale(0%); }
-        .quote { font-family: var(--font-head); font-size: 1.2rem; line-height: 1.4; border-left: 2px solid var(--accent); padding-left: 20px; margin: 30px 0; color: white; }
-
-        /* --- SERVICES TABS (CORE LOGIC) --- */
-        .tabs-nav { display: flex; gap: 20px; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 20px; overflow-x: auto; }
-        .tab-btn {
-            background: none; border: none; color: var(--txt-dim); font-family: var(--font-head);
-            font-size: 1.2rem; cursor: pointer; text-transform: uppercase; padding: 10px 0; transition: 0.3s;
-            position: relative; white-space: nowrap;
+        /* --- HERO (SOFT & EMOTIONAL) --- */
+        .hero { height: 100vh; display: flex; align-items: center; position: relative; padding: 0 5%; }
+        .hero-content { max-width: 700px; position: relative; z-index: 2; }
+        
+        /* Soft image overlay look */
+        .hero-image-frame {
+            position: absolute; top: 50%; right: 5%; transform: translateY(-50%);
+            width: 40vw; height: 70vh; border-radius: 200px 200px 0 0; /* Arch Shape */
+            overflow: hidden; border: 1px solid var(--accent-soft);
+            display: none; /* Hidden on mobile initially */
         }
-        .tab-btn.active { color: white; }
-        .tab-btn.active::after { content:''; position: absolute; bottom: -21px; left:0; width: 100%; height: 2px; background: var(--accent); }
+        .hero-image-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(20%) contrast(90%); }
 
-        .tab-content { display: none; animation: fadeIn 0.5s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- PHILOSOPHY (THE "TAKING TIME" PART) --- */
+        .about-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img-wrap { position: relative; }
+        /* Round soft image for Irene */
+        .about-img { 
+            width: 80%; aspect-ratio: 1/1; object-fit: cover; 
+            border-radius: 50%; /* Circle */
+            border: 1px solid var(--accent-soft); padding: 10px; /* Framing */
+            margin: 0 auto; display: block;
+        }
+        .quote-box {
+            margin-top: 30px; padding: 30px; background: var(--bg-surface);
+            border-radius: var(--radius); border-left: 3px solid var(--accent);
+            font-family: var(--font-display); font-size: 1.1rem; line-height: 1.5;
+        }
 
-        /* Service Cards */
-        .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        /* --- SERVICES (SOFT CARDS) --- */
+        .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .svc-card {
-            background: var(--surface); padding: 40px; border: 1px solid var(--border);
-            transition: 0.3s; position: relative;
+            background: var(--bg-surface); padding: 40px; border-radius: var(--radius);
+            transition: 0.4s var(--ease-soft); border: 1px solid transparent;
         }
-        .svc-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .svc-card h4 { font-size: 1.2rem; margin-bottom: 10px; color: white; text-transform: uppercase; font-family: var(--font-head); }
-        .price-tag { font-size: 1.5rem; color: var(--accent); font-weight: 700; margin: 15px 0; display: block; }
-        .svc-features li { margin-bottom: 8px; font-size: 0.9rem; color: #ccc; list-style: none; display: flex; gap: 10px; }
-        .svc-features li i { color: var(--accent); margin-top: 4px; }
+        .svc-card:hover { border-color: var(--accent-soft); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .svc-icon { font-size: 2rem; color: var(--accent); margin-bottom: 25px; opacity: 0.8; }
+        .price-hint { display: block; margin-top: 20px; font-size: 0.9rem; color: var(--accent); font-weight: 500; }
 
-        /* --- PORTFOLIO --- */
-        .gallery-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scrollbar-width: none; }
-        .g-img { min-width: 300px; height: 450px; position: relative; overflow: hidden; }
-        .g-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .g-img:hover img { transform: scale(1.1); }
-        
-        /* --- CONTACT --- */
-        .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); }
-        .contact-info { background: var(--surface); padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        .contact-form { padding: 60px; background: #0c0c0c; }
-        
-        input, select, textarea {
-            width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 15px;
-            color: white; margin-bottom: 20px; font-family: var(--font-body); transition: 0.3s;
+        /* --- PORTFOLIO (ELEGANT GRID) --- */
+        .portfolio-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        .p-item { 
+            position: relative; height: 400px; overflow: hidden; border-radius: var(--radius); 
+            cursor: pointer;
+        }
+        .p-item img { 
+            width: 100%; height: 100%; object-fit: cover; transition: 0.7s ease;
+            filter: grayscale(20%); /* A little softer */
+        }
+        .p-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
+        
+        /* --- CONTACT (INVITING) --- */
+        .contact-split { display: grid; grid-template-columns: 1fr 1.5fr; gap: 0; border-radius: var(--radius); overflow: hidden; }
+        .contact-visual { 
+            background: url('https://denkenfeld.github.io/geprofoto1/img/kontakt.jpg') center/cover; 
+            min-height: 400px; position: relative;
+        }
+        .contact-visual::after { content:''; position:absolute; inset:0; background: rgba(212, 175, 55, 0.1); /* Gold tint */ }
+        
+        .contact-form-wrap { background: var(--bg-surface); padding: 60px; }
+        .form-group { margin-bottom: 25px; }
+        input, select, textarea {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 0; color: var(--txt-light); font-family: var(--font-body); font-size: 1rem;
+            transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { border-bottom-color: var(--accent); outline: none; }
+        ::placeholder { color: rgba(255,255,255,0.3); }
 
         /* --- FOOTER --- */
-        footer { padding: 80px 5%; border-top: 1px solid var(--border); background: #050505; color: var(--txt-dim); font-size: 0.9rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .f-logo img { width: 100px; filter: invert(1); margin-bottom: 20px; }
+        footer { background: #151312; padding: 80px 5%; text-align: center; margin-top: 100px; }
+        .footer-logo { font-family: var(--font-display); font-size: 2rem; margin-bottom: 20px; color: var(--txt-light); }
+        .footer-links a { color: var(--txt-muted); margin: 0 15px; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
 
         /* --- MOBILE --- */
-        @media (max-width: 900px) {
-            h1 { font-size: 2.5rem; }
-            .about-split, .contact-wrap { grid-template-columns: 1fr; }
-            nav { display: none; }
-            .burger { display: block; }
-            .hero-tags { flex-wrap: wrap; }
-            .svc-card { padding: 30px 20px; }
+        @media (max-width: 1024px) {
+            .hero-image-frame { display: none; }
+            .hero { align-items: center; justify-content: center; text-align: center; }
+            .hero-content { margin: 0 auto; }
+            h2::after { left: 50%; transform: translateX(-50%); }
+            .about-split, .contact-split { grid-template-columns: 1fr; gap: 50px; }
+            .contact-visual { min-height: 250px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            
+            nav { 
+                position: fixed; top: 0; right: 0; height: 100vh; width: 70%; background: var(--bg-surface);
+                flex-direction: column; justify-content: center; align-items: center; gap: 40px;
+                transform: translateX(100%); transition: 0.4s var(--ease-soft);
+            }
+            nav.active { transform: translateX(0); }
+            .burger { display: block; z-index: 1001; }
         }
-        
-        /* Mobile Menu Overlay */
-        #mobile-menu {
-            position: fixed; inset: 0; background: black; z-index: 999; display: flex; 
-            flex-direction: column; justify-content: center; align-items: center; gap: 30px;
-            transform: translateY(-100%); transition: 0.4s ease;
-        }
-        #mobile-menu.active { transform: translateY(0); }
-        #mobile-menu a { font-size: 1.5rem; color: white; text-decoration: none; font-family: var(--font-head); text-transform: uppercase; }
-
     </style>
 </head>
 <body>
 
-    <div id="mobile-menu">
-        <a href="#about" class="m-link">Studio</a>
-        <a href="#karriere" class="m-link">Bewerbung</a>
-        <a href="#business" class="m-link">Business</a>
-        <a href="#contact" class="m-link">Kontakt</a>
-    </div>
+    <canvas id="webgl-fluid"></canvas>
 
     <header>
-        <div class="logo">PIX FOTOSTUDIO</div>
+        <div class="logo">PIX<span>.</span>FOTOSTUDIO</div>
         <nav>
-            <a href="#about">Studio</a>
-            <a href="#karriere">Karriere</a>
-            <a href="#business">Business & Corporate</a>
+            <a href="#philosophie">Philosophie</a>
+            <a href="#leistungen">Leistungen</a>
             <a href="#portfolio">Galerie</a>
-            <a href="#contact" class="btn outline" style="padding: 10px 20px; margin-left: 20px;">Kontakt</a>
+            <a href="#contact">Kontakt</a>
         </nav>
         <div class="burger"><i class="fas fa-bars"></i></div>
     </header>
 
-    <div class="swiper hero-slider">
-        <div class="swiper-wrapper">
-            
-            <div class="swiper-slide">
-                <div class="hero-slide">
-                    <img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg" class="hero-bg" alt="High End Portrait">
-                    <div class="hero-content">
-                        <div class="hero-tags">
-                            <span class="tag">Studio Balingen</span>
-                            <span class="tag">Since 2008</span>
-                        </div>
-                        <h1>Beyond<br>Ordinary.</h1>
-                        <p>Fotografie, die Persönlichkeit sichtbar macht. Für Karriere, Business und Marke.</p>
-                        <a href="#karriere" class="btn">Angebote ansehen</a>
-                    </div>
-                </div>
+    <section class="hero">
+        <div class="hero-content fade-up">
+            <span class="sub-heading">Willkommen in Balingen</span>
+            <h1>Fotografie, die<br>sich Zeit nimmt.</h1>
+            <p>
+                In einer schnellen Welt halten wir den Moment fest. In unserem gemütlichen Studio oder draußen in der Natur. 
+                Authentisch, erfahren und mit viel Gespür für Sie.
+            </p>
+            <div style="margin-top: 40px; display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="#contact" class="btn filled">Termin anfragen</a>
+                <a href="#leistungen" class="btn">Angebote ansehen</a>
             </div>
-
-            <div class="swiper-slide">
-                <div class="hero-slide">
-                    <img src="https://denkenfeld.github.io/geprofoto1/img/unnamed-1.jpg" class="hero-bg" alt="Corporate Team">
-                    <div class="hero-content">
-                        <div class="hero-tags">
-                            <span class="tag">Corporate</span>
-                            <span class="tag">Employer Branding</span>
-                        </div>
-                        <h1>Team<br>Identity.</h1>
-                        <p>Starke Mitarbeiterfotos und Unternehmensreportagen für Ihren professionellen Auftritt.</p>
-                        <a href="#business" class="btn">Für Unternehmen</a>
-                    </div>
-                </div>
-            </div>
-
-             <div class="swiper-slide">
-                <div class="hero-slide">
-                    <img src="https://denkenfeld.github.io/geprofoto1/img/s5.jpg" class="hero-bg" alt="Executive Portrait">
-                    <div class="hero-content">
-                        <div class="hero-tags">
-                            <span class="tag">Headshots</span>
-                            <span class="tag">LinkedIn</span>
-                        </div>
-                        <h1>Executive<br>Presence.</h1>
-                        <p>Modernes Personal Branding für Führungskräfte.</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
+        <div class="hero-image-frame fade-up" style="transition-delay: 0.2s;">
+            <img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-doppel.jpg" alt="Emotionale Fotografie">
+        </div>
+    </section>
 
-    <section id="about" class="section-pad">
+    <section id="philosophie" class="section-pad">
         <div class="container">
             <div class="about-split">
-                <div class="about-txt">
-                    <span class="overline">Das Studio</span>
-                    <h2>Fokus Mensch.<br>Fokus Wirkung.</h2>
-                    <div class="quote">
-                        "Ein gutes Foto ist kein Zufall. Es ist das Ergebnis aus Licht, Technik und vor allem: Empathie."
+                <div class="about-txt fade-up">
+                    <span class="sub-heading">Über mich & Das Studio</span>
+                    <h2>Erfahrung trifft<br>Empathie.</h2>
+                    <p>
+                        Ich bin Irene Ilter. Seit über 15 Jahren ist die Fotografie nicht nur mein Beruf, sondern meine Art, die Welt zu sehen.
+                        Mein Studio in Balingen ist kein steriler Raum, sondern ein Ort zum Wohlfühlen.
+                    </p>
+                    <p>
+                        Ich glaube daran, dass die besten Bilder entstehen, wenn man sich vertraut. Deshalb nehme ich mir Zeit für ein Vorgespräch, 
+                        einen Kaffee und eine entspannte Atmosphäre. Ob für ein sensibles Bewerbungsfoto, das Ihre Stärke zeigt, oder ein emotionales Familienportrait.
+                    </p>
+                    <div class="quote-box">
+                        "Technik ist wichtig, aber das Herz macht das Bild. Ich möchte den Menschen zeigen, nicht nur sein Äußeres."
                     </div>
-                    <p>
-                        Willkommen bei PIX FOTOSTUDIO. Mein Name ist Irene Ilter. Seit über 15 Jahren fotografiere ich Menschen in Balingen und Umgebung. 
-                        Mein Ziel ist es nicht nur, ein "schönes Bild" zu machen, sondern ein Bild, das für Sie arbeitet – egal ob in der Bewerbungsmappe oder auf der Firmenwebsite.
-                    </p>
-                    <p>
-                        Wir arbeiten in entspannter Atmosphäre, nehmen uns Zeit für das perfekte Licht und coachen Sie beim Posing, bis der Ausdruck sitzt.
-                    </p>
-                    <br>
-                    <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-p.jpg" style="width: 100px; filter:invert(1);" alt="Signatur">
                 </div>
-                <div class="about-img">
-                    <img src="https://denkenfeld.github.io/geprofoto1/img/irene-infobild.jpg" alt="Irene Ilter">
+                <div class="about-img-wrap fade-up" style="transition-delay: 0.2s;">
+                    <img src="https://denkenfeld.github.io/geprofoto1/img/irene-rund-.jpg" class="about-img" alt="Irene Ilter Fotografin">
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-pad" style="background: var(--surface);">
+    <section id="leistungen" class="section-pad" style="background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));">
         <div class="container">
-            <span class="overline">Angebote & Preise</span>
-            <h2>Wähle deinen Bereich</h2>
-
-            <div class="tabs-nav">
-                <button class="tab-btn active" onclick="openTab(event, 'karriere')">Bewerbung & Karriere</button>
-                <button class="tab-btn" onclick="openTab(event, 'business')">Business & Corporate</button>
-                <button class="tab-btn" onclick="openTab(event, 'studio')">Passbilder & Studio</button>
+            <div style="text-align: center; margin-bottom: 60px;">
+                <span class="sub-heading">Was ich für Sie tun kann</span>
+                <h2>Mein Angebot</h2>
             </div>
 
-            <div id="karriere" class="tab-content active">
-                <p style="margin-bottom: 30px; max-width: 600px;">
-                    Der erste Eindruck entscheidet. Unsere Bewerbungspakete sind darauf ausgelegt, Ihre Kompetenz und Sympathie perfekt in Szene zu setzen.
-                </p>
-                <div class="svc-grid">
-                    <div class="svc-card">
-                        <h4>Serie S (Starter)</h4>
-                        <span class="price-tag">49€</span>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> ca. 20 Min. Shooting</li>
-                            <li><i class="fas fa-check"></i> 1 Outfit</li>
-                            <li><i class="fas fa-check"></i> 1 Motiv als Datei & 4er Abzug</li>
-                            <li><i class="fas fa-check"></i> Bildauswahl direkt am Monitor</li>
-                            <li><i class="fas fa-check"></i> Leichte Retusche</li>
-                        </ul>
-                    </div>
-                    <div class="svc-card" style="border-color: var(--accent);">
-                        <div style="position: absolute; top:0; right:0; background:var(--accent); color:white; font-size:0.7rem; padding: 5px 10px; text-transform:uppercase;">Empfehlung</div>
-                        <h4>Serie M (Classic)</h4>
-                        <span class="price-tag">89€</span>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> ca. 45 Min. Shooting</li>
-                            <li><i class="fas fa-check"></i> Outfitwechsel möglich</li>
-                            <li><i class="fas fa-check"></i> 2 Motive als Datei (High Res)</li>
-                            <li><i class="fas fa-check"></i> Verschiedene Hintergründe</li>
-                            <li><i class="fas fa-check"></i> Professionelle Retusche</li>
-                        </ul>
-                    </div>
-                    <div class="svc-card">
-                        <h4>Serie L (Premium)</h4>
-                        <span class="price-tag">149€</span>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> 60 Min. Coaching & Shooting</li>
-                            <li><i class="fas fa-check"></i> Mehrere Outfits</li>
-                            <li><i class="fas fa-check"></i> 4 Motive als Datei (High Res)</li>
-                            <li><i class="fas fa-check"></i> Für LinkedIn & CV optimiert</li>
-                            <li><i class="fas fa-check"></i> High-End Beauty Retusche</li>
-                        </ul>
-                    </div>
+            <div class="svc-grid">
+                <div class="svc-card fade-up">
+                    <i class="fas fa-user-circle svc-icon"></i>
+                    <h3>Bewerbung & Karriere</h3>
+                    <p>Der erste Eindruck zählt, aber er muss echt sein. Wir erarbeiten gemeinsam ein Bild, das Ihre Kompetenz und Ihre Persönlichkeit zeigt. Ohne Stress, mit Coaching.</p>
+                    <span class="price-hint">Pakete ab 49€ (Starter) bis 149€ (Premium)</span>
+                    <a href="#contact" style="margin-top: 20px; display: inline-block; color:var(--accent); text-decoration: none; font-size: 0.9rem;">Details anfragen &rarr;</a>
+                </div>
+
+                <div class="svc-card fade-up" style="transition-delay: 0.1s;">
+                    <i class="fas fa-briefcase svc-icon"></i>
+                    <h3>Business & Teams</h3>
+                    <p>Für Selbstständige und Unternehmen im ländlichen Raum. Hochwertige Headshots und authentische Firmenreportagen, die Vertrauen schaffen.</p>
+                    <span class="price-hint">Headshots ab 120€ | Firmen auf Anfrage</span>
+                </div>
+
+                <div class="svc-card fade-up" style="transition-delay: 0.2s;">
+                    <i class="fas fa-heart svc-icon"></i>
+                    <h3>Portraits & Familie</h3>
+                    <p>Schöne Momente für die Ewigkeit. In meinem gemütlichen Studio oder draußen in unserer schönen Natur. Entspannt und natürlich.</p>
+                    <span class="price-hint">Individuelle Sessions ab 89€</span>
                 </div>
             </div>
-
-            <div id="business" class="tab-content">
-                <p style="margin-bottom: 30px;">
-                    Für Unternehmen, Selbstständige und Führungskräfte. Inklusive gewerblicher Nutzungsrechte.
-                </p>
-                <div class="svc-grid">
-                    <div class="svc-card">
-                        <h4>Business Headshot</h4>
-                        <span class="price-tag">ab 120€</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Perfekt für Website, Pressemitteilungen und Social Media Profile.</p>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> Studio oder Outdoor</li>
-                            <li><i class="fas fa-check"></i> Coaching für Körpersprache</li>
-                            <li><i class="fas fa-check"></i> Kommerzielle Nutzungsrechte</li>
-                        </ul>
-                    </div>
-                    <div class="svc-card">
-                        <h4>Personal Branding</h4>
-                        <span class="price-tag">ab 290€</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Eine komplette Bildserie, die Ihre Marke und Tätigkeit zeigt.</p>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> Konzept-Erstellung</li>
-                            <li><i class="fas fa-check"></i> Portrait & Szene/Action</li>
-                            <li><i class="fas fa-check"></i> Bildpool für Social Media</li>
-                        </ul>
-                    </div>
-                    <div class="svc-card">
-                        <h4>Corporate Team</h4>
-                        <span class="price-tag">Auf Anfrage</span>
-                        <p style="font-size: 0.9rem; margin-bottom: 20px;">Mitarbeiterfotos und Firmenreportagen bei Ihnen vor Ort.</p>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> Mobiles Studio Equipment</li>
-                            <li><i class="fas fa-check"></i> Einheitlicher Bildlook</li>
-                            <li><i class="fas fa-check"></i> Team-Gruppenbilder</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div id="studio" class="tab-content">
-                <div class="svc-grid" style="grid-template-columns: 1fr 1fr;">
-                    <div class="svc-card">
-                        <h4>Biometrische Passbilder</h4>
-                        <span class="price-tag">19€</span>
-                        <p>Sofort zum Mitnehmen. Garantiert behördentauglich für Reisepass, Personalausweis und Führerschein.</p>
-                        <ul class="svc-features">
-                            <li><i class="fas fa-check"></i> 4er Abzug</li>
-                            <li><i class="fas fa-check"></i> Ohne Termin möglich (Anruf empfohlen)</li>
-                        </ul>
-                    </div>
-                    <div class="svc-card">
-                        <h4>Kids & Family</h4>
-                        <span class="price-tag">ab 89€</span>
-                        <p>Moderne Familienportraits im Studio oder draußen. Keine Kitsch-Garantie.</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <section id="portfolio" class="section-pad">
         <div class="container">
-            <span class="overline">Selected Work</span>
-            <h2 style="margin-bottom: 40px;">Visuelle Referenzen</h2>
-        </div>
-        <div class="gallery-scroller">
-            <div class="g-img" style="margin-left: 5vw;"><img src="https://denkenfeld.github.io/geprofoto1/img/s4.jpg" alt="Business"></div>
-            <div class="g-img"><img src="https://denkenfeld.github.io/geprofoto1/img/Collage10x4pf.jpg" alt="Team"></div>
-            <div class="g-img"><img src="https://denkenfeld.github.io/geprofoto1/img/unnamed.jpg" alt="Portrait"></div>
-            <div class="g-img"><img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg" alt="Fashion"></div>
-            <div class="g-img"><img src="https://denkenfeld.github.io/geprofoto1/img/1436a776-00c5-43db-bc39-22aa76b0bfe6_l.jpg" alt="Bewerbung"></div>
-            <div class="g-img"><img src="https://denkenfeld.github.io/geprofoto1/img/studio1.jpg" alt="Making of"></div>
+            <div style="margin-bottom: 60px;">
+                <span class="sub-heading">Einblicke</span>
+                <h2>Ausgewählte Arbeiten</h2>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="p-item fade-up"><img src="https://denkenfeld.github.io/geprofoto1/img/s4.jpg" alt="Portrait"></div>
+                <div class="p-item fade-up" style="transition-delay: 0.1s;"><img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg" alt="Fashion Art"></div>
+                <div class="p-item fade-up" style="transition-delay: 0.2s;"><img src="https://denkenfeld.github.io/geprofoto1/img/1436a776-00c5-43db-bc39-22aa76b0bfe6_l.jpg" alt="Bewerbung"></div>
+                
+                <div class="p-item fade-up"><img src="https://denkenfeld.github.io/geprofoto1/img/studio1.jpg" alt="Studio Atmosphäre"></div>
+                <div class="p-item fade-up" style="transition-delay: 0.1s;"><img src="https://denkenfeld.github.io/geprofoto1/img/unnamed.jpg" alt="Business Mann"></div>
+                <div class="p-item fade-up" style="transition-delay: 0.2s;"><img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-9.jpg" alt="Portrait"></div>
+            </div>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="contact-wrap">
-            <div class="contact-info">
-                <span class="overline">Get in touch</span>
-                <h2>Start a Project</h2>
-                <p>Haben Sie Fragen zu einem Paket oder möchten Sie einen Termin vereinbaren?</p>
-                <div style="margin-top: 30px;">
-                    <h3 class="accent">PIX FOTOSTUDIO</h3>
-                    <p>Musterstraße 1, 72336 Balingen</p>
-                    <p>+49 123 456 789</p>
-                    <p>info@pix-fotostudio.de</p>
+    <section id="contact" class="section-pad">
+        <div class="container">
+            <div class="contact-split fade-up">
+                <div class="contact-visual">
+                    </div>
+                <div class="contact-form-wrap">
+                    <span class="sub-heading">Lassen Sie uns sprechen</span>
+                    <h2 style="margin-bottom: 10px;">Kontakt</h2>
+                    <p>Ich freue mich darauf, Sie kennenzulernen. Schreiben Sie mir gerne für eine Terminvereinbarung oder ein unverbindliches Angebot.</p>
+                    <br>
+                    <form action="https://formspree.io/f/DEINE_ID" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Ihr Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Ihre E-Mail Adresse" required>
+                        </div>
+                        <div class="form-group">
+                            <select name="topic">
+                                <option value="" disabled selected>Worum geht es?</option>
+                                <option value="Bewerbung">Bewerbungsfotos</option>
+                                <option value="Business">Business / Firmenanfrage</option>
+                                <option value="Privat">Privates Shooting / Familie</option>
+                                <option value="Andere">Sonstiges</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="4" placeholder="Ihre Nachricht..."></textarea>
+                        </div>
+                        <button type="submit" class="btn filled">Nachricht senden</button>
+                    </form>
+                    <div style="margin-top: 40px; font-size: 0.9rem;">
+                        <p><strong style="color:var(--accent);">PIX FOTOSTUDIO</strong><br>Musterstraße 1, 72336 Balingen</p>
+                        <p>Tel: 0123 456 789<br>Mail: info@pix-fotostudio.de</p>
+                    </div>
                 </div>
-            </div>
-            <div class="contact-form">
-                <form action="https://formspree.io/f/DEINE_ID" method="POST">
-                    <input type="text" name="name" placeholder="Name" required>
-                    <input type="email" name="email" placeholder="E-Mail" required>
-                    <select name="topic">
-                        <option value="Bewerbung">Termin für Bewerbungsfotos</option>
-                        <option value="Business">Business / Corporate Anfrage</option>
-                        <option value="Passbild">Frage zu Passbildern</option>
-                        <option value="Sonstiges">Sonstiges</option>
-                    </select>
-                    <textarea name="message" rows="5" placeholder="Nachricht..."></textarea>
-                    <button type="submit" class="btn" style="width: 100%; border-color:white; color: white; background: transparent;">Senden</button>
-                </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container footer-grid">
-            <div class="f-logo">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-p.jpg" alt="Logo">
-                <p>Professionelle Fotografie in Balingen.<br>Seit 2008.</p>
-            </div>
-            <div>
-                <h4 style="color:white; margin-bottom:15px;">Studio</h4>
-                <p><a href="#karriere" style="color:#9ca3af; text-decoration:none;">Bewerbung</a></p>
-                <p><a href="#business" style="color:#9ca3af; text-decoration:none;">Business</a></p>
-                <p><a href="#studio" style="color:#9ca3af; text-decoration:none;">Passbilder</a></p>
-            </div>
-            <div>
-                <h4 style="color:white; margin-bottom:15px;">Legal</h4>
-                <p><a href="#" class="trigger-modal" style="color:#9ca3af; text-decoration:none;">Impressum</a></p>
-                <p><a href="#" class="trigger-modal" style="color:#9ca3af; text-decoration:none;">Datenschutz</a></p>
-            </div>
+        <div class="footer-logo">PIX FOTOSTUDIO</div>
+        <div class="footer-links">
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+            <a href="https://instagram.com" target="_blank">Instagram</a>
         </div>
-        <div class="container" style="text-align: center; opacity: 0.5; font-size: 0.8rem;">
-            &copy; 2025 PIX FOTOSTUDIO. All rights reserved.
-        </div>
+        <p style="margin-top: 30px; opacity: 0.5; font-size: 0.8rem;">&copy; 2025 Irene Ilter. Mit Liebe gemacht.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <script>
-        // Smooth Scroll
-        const lenis = new Lenis();
+        // 1. SMOOTH SCROLL (Lenis) - Für das elegante Gleiten
+        const lenis = new Lenis({ duration: 1.5, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Slider
-        const swiper = new Swiper('.hero-slider', {
-            effect: 'fade', speed: 1000, autoplay: { delay: 5000 }, loop: true
+        // 2. HEADER SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Tabs Logic
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
+        // 3. GSAP FADE UPS
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.fade-up').forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: { trigger: elem, start: "top 85%" },
+                y: 40, opacity: 0, duration: 1, ease: "power3.out"
+            });
+        });
 
-        // Mobile Menu
+        // 4. MOBILE MENU
         const burger = document.querySelector('.burger');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mLinks = document.querySelectorAll('.m-link');
-        
+        const nav = document.querySelector('nav');
         burger.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-            burger.innerHTML = mobileMenu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            nav.classList.toggle('active');
+            burger.innerHTML = nav.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-        
-        mLinks.forEach(l => l.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            burger.innerHTML = '<i class="fas fa-bars"></i>';
+        document.querySelectorAll('nav a').forEach(l => l.addEventListener('click', () => {
+            nav.classList.remove('active'); burger.innerHTML = '<i class="fas fa-bars"></i>';
         }));
+
+        // 5. WEBGL FLUID BACKGROUND (SIMULATED for stability / "Tech Coolness")
+        // Echte Fluid Simulationen benötigen oft externe Shader-Dateien. 
+        // Dies ist eine Three.js Implementierung, die einen sehr langsamen, 
+        // organischen "Nebel/Seiden"-Effekt mit Perlin Noise simuliert.
+        
+        const canvas = document.getElementById('webgl-fluid');
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        // Wir erstellen eine "Wolke" aus sehr vielen weichen Partikeln
+        const geometry = new THREE.BufferGeometry();
+        const count = 2000;
+        const pos = new Float32Array(count * 3);
+        for(let i=0; i<count*3; i++) {
+            pos[i] = (Math.random() - 0.5) * 15;
+        }
+        geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+        // Das Material ist entscheidend: Weich, transparent, goldig
+        const material = new THREE.PointsMaterial({
+            size: 0.15, // Größe der "Tropfen"
+            color: 0xd4af37, // Goldfarbe
+            transparent: true,
+            opacity: 0.3, // Sehr transparent
+            blending: THREE.AdditiveBlending, // Leuchtender Effekt
+            depthWrite: false
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        let mouseX = 0; let mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        const clock = new THREE.Clock();
+        function animateFluid() {
+            const t = clock.getElapsedTime();
+            // Sehr langsame, organische Bewegung
+            particles.rotation.y = t * 0.02;
+            particles.rotation.x = Math.sin(t * 0.1) * 0.1;
+            
+            // Sanfte Reaktion auf die Maus
+            particles.rotation.x += (mouseY * 0.05 - particles.rotation.x) * 0.01;
+            particles.rotation.y += (mouseX * 0.05 - particles.rotation.y) * 0.01;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animateFluid);
+        }
+        animateFluid();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
 
     </script>
 </body>
