@@ -2,9 +2,9 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Heartbeat Moments - Eure Geschichte in Bildern</title>
-    <meta name="description" content="Professionelle Fotografie für echte Momente. Hochzeiten, Paare und Familien.">
+    <meta name="description" content="Professionelle Fotografie für Hochzeiten, Paare, Familien und Babybauch.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,49 +12,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- CSS VARIABLEN & GLOBAL --- */
+        /* --- CSS VARIABLEN --- */
         :root {
-            --primary-color: #B08968; /* Ein warmer Erdton/Gold */
-            --secondary-color: #EDE0D4; /* Helles Beige */
+            --primary-color: #B08968; 
+            --secondary-color: #Fdfbf7;
             --text-dark: #2C2C2C;
             --text-light: #666666;
-            --bg-white: #FCFCFC;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Lato', sans-serif;
             --font-accent: 'Dancing Script', cursive;
             --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
+        /* --- GLOBAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            overflow-x: hidden; /* Verhindert seitliches Scrollen (weißer Rand) */
+            width: 100%;
             scroll-behavior: smooth;
-        }
-
-        body {
             font-family: var(--font-body);
             color: var(--text-dark);
-            background-color: var(--bg-white);
             line-height: 1.6;
-            overflow-x: hidden;
+            background-color: #fff;
         }
 
-        h1, h2, h3, h4 {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .accent-text {
-            font-family: var(--font-accent);
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; color: var(--text-dark); }
+        .accent-text { font-family: var(--font-accent); color: var(--primary-color); font-size: 1.8rem; }
+        
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
@@ -62,523 +47,367 @@
         /* --- BUTTONS --- */
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 14px 35px;
             background-color: var(--primary-color);
             color: white;
             border: 2px solid var(--primary-color);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: var(--transition);
+            margin-top: 10px;
         }
-
-        .btn:hover {
-            background-color: transparent;
-            color: var(--primary-color);
-        }
+        .btn:hover { background-color: transparent; color: var(--primary-color); }
 
         .btn-outline {
+            display: inline-block;
+            padding: 12px 30px;
             background-color: transparent;
-            border: 2px solid var(--text-dark);
+            border: 1px solid var(--text-dark);
             color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            transition: var(--transition);
         }
-
-        .btn-outline:hover {
-            background-color: var(--text-dark);
-            color: white;
-        }
+        .btn-outline:hover { background-color: var(--text-dark); color: white; }
 
         /* --- NAVIGATION --- */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: transparent;
+            display: flex; justify-content: space-between; align-items: center;
             transition: 0.4s;
         }
+        header.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 15px 5%; }
+        
+        .logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #fff; transition: 0.3s; }
+        header.scrolled .logo { color: var(--text-dark); }
 
-        header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 5%;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after { width: 100%; }
-
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; font-weight: 400; }
+        header.scrolled .nav-links a { color: var(--text-dark); }
+        
         .burger { display: none; cursor: pointer; }
-        .burger div { width: 25px; height: 3px; background-color: var(--text-dark); margin: 5px; transition: var(--transition); }
+        .burger div { width: 25px; height: 2px; background-color: #fff; margin: 6px; transition: var(--transition); }
+        header.scrolled .burger div { background-color: var(--text-dark); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SLIDER --- */
         .hero {
-            height: 100vh;
-            width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-            /* HINWEIS: Ersetze die URL oben durch ein Top-Bild von Heartbeat Moments */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        /* --- SECTIONS GENERAL --- */
-        section {
-            padding: 80px 10%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .section-title span {
-            display: block;
-            margin-top: 10px;
-            width: 50px;
-            height: 2px;
-            background: var(--primary-color);
-            margin: 10px auto;
-        }
-
-        /* --- INTRO / VIBE --- */
-        .intro {
-            text-align: center;
-            background-color: var(--secondary-color);
-        }
-
-        .intro-text {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* --- ABOUT --- */
-        .about-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-img {
+            height: 100vh; width: 100%;
             position: relative;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 0 20px;
+            overflow: hidden;
+        }
+        
+        /* Overlay um Text lesbar zu machen */
+        .hero::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3); z-index: 1;
         }
 
-        .about-img img {
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 10px 10px 0px var(--secondary-color);
+        .slider-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0; transition: opacity 1.5s ease-in-out, transform 7s linear;
+            z-index: 0;
+            transform: scale(1);
         }
+        .slider-bg.active { opacity: 1; transform: scale(1.1); } /* Ken Burns Effekt */
 
-        /* --- PORTFOLIO --- */
-        .portfolio-grid {
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; color: white; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; font-weight: 300; text-shadow: 0 1px 5px rgba(0,0,0,0.3); }
+
+        /* --- SECTIONS --- */
+        section { padding: 90px 8%; }
+        
+        .section-title { text-align: center; margin-bottom: 70px; }
+        .section-title h2 { font-size: 2.5rem; margin-bottom: 15px; letter-spacing: 1px; }
+        .section-title span { display: block; margin: 15px auto; width: 60px; height: 1px; background: var(--primary-color); }
+
+        /* --- 4 BEREICHE (CATEGORIES) --- */
+        .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
-
-        .portfolio-item {
-            position: relative;
-            overflow: hidden;
-            height: 300px;
-            cursor: pointer;
+        .cat-item {
+            position: relative; height: 350px; overflow: hidden; cursor: pointer;
         }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        .cat-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
         }
-
-        .portfolio-item:hover img {
-            transform: scale(1.1);
+        .cat-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25);
+            display: flex; justify-content: center; align-items: center;
+            transition: background 0.3s;
         }
-
-        /* --- PRICING --- */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        .cat-overlay h3 {
+            color: white; font-size: 1.8rem; letter-spacing: 2px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            border-bottom: 1px solid transparent;
+            padding-bottom: 5px; transition: 0.3s;
         }
+        .cat-item:hover img { transform: scale(1.05); }
+        .cat-item:hover .cat-overlay { background: rgba(0,0,0,0.4); }
+        .cat-item:hover .cat-overlay h3 { border-color: white; }
 
-        .price-card {
-            background: white;
-            padding: 40px 20px;
-            text-align: center;
-            border: 1px solid #eee;
-            transition: var(--transition);
-            position: relative;
+        /* --- INTRO --- */
+        .intro { text-align: center; background-color: var(--secondary-color); padding: 80px 10%; }
+        .intro-text { max-width: 750px; margin: 0 auto; }
+        .intro p { font-size: 1.1rem; color: #555; }
+
+        /* --- PRICING (4 Areas) --- */
+        .pricing-tabs {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;
         }
-
-        .price-card.featured {
-            border: 2px solid var(--primary-color);
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            z-index: 2;
+        .tab-btn {
+            padding: 10px 20px; background: white; border: 1px solid #ddd;
+            cursor: pointer; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s;
         }
-
-        .price-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .price-header h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .price { font-size: 2.5rem; font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px; display: block; }
-        .price span { font-size: 1rem; color: var(--text-light); }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         
-        .price-features { margin-bottom: 30px; text-align: left; padding-left: 10px;}
-        .price-features li { margin-bottom: 10px; color: var(--text-light); font-size: 0.95rem; }
-        .price-features i { color: var(--primary-color); margin-right: 10px; }
-
-        .addons {
-            margin-top: 50px;
-            text-align: center;
-            background: #fafafa;
-            padding: 30px;
-            border-radius: 5px;
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
         }
+        .price-card {
+            background: white; padding: 40px 25px; text-align: center; border: 1px solid #eee;
+            transition: var(--transition); position: relative;
+        }
+        .price-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        .price-features { margin: 25px 0; text-align: left; padding-left: 10px; list-style: none; }
+        .price-features li { margin-bottom: 12px; color: var(--text-light); font-size: 0.95rem; display: flex; align-items: center; }
+        .price-features i { color: var(--primary-color); margin-right: 12px; width: 15px; }
 
-        /* --- CONTACT --- */
-        .contact { background-color: #f4f4f4; }
+        /* --- KONTAKT (FIXED FOR MOBILE) --- */
+        .contact { background-color: #f8f8f8; }
         .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            width: 100%; /* Ensure fits in parent */
+        }
+        
+        .contact-form-wrapper form {
+            width: 100%;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        
+        .form-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+            width: 100%;
         }
 
-        .contact-info p { margin-bottom: 20px; }
-        .contact-info i { color: var(--primary-color); width: 30px; }
-
-        form { display: flex; flex-direction: column; gap: 15px; }
         input, textarea, select {
+            width: 100%; /* Wichtig für Mobile */
             padding: 15px;
             border: 1px solid #ddd;
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 0.95rem;
             background: white;
+            outline: none;
+            transition: 0.3s;
         }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary-color); }
         textarea { resize: vertical; min-height: 150px; }
 
         /* --- FOOTER --- */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 50px 10% 20px;
-            text-align: center;
+        footer { background-color: #1a1a1a; color: #999; padding: 60px 10% 30px; text-align: center; }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { margin: 0 15px; font-size: 0.85rem; color: #ccc; }
+        .footer-socials { font-size: 1.5rem; margin-top: 20px; }
+        .footer-socials a { color: white; margin: 0 10px; }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media screen and (max-width: 900px) {
+            .contact-container { grid-template-columns: 1fr; gap: 40px; }
+            .hero h1 { font-size: 2.5rem; }
         }
 
-        .footer-links a { margin: 0 15px; font-size: 0.9rem; }
-        .footer-links a:hover { color: white; }
-        .copyright { margin-top: 30px; font-size: 0.8rem; color: #777; }
-
-        /* --- MODALS (POP UPS) --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active { display: flex; opacity: 1; }
-
-        .modal-content {
-            background-color: white;
-            padding: 40px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-            border-radius: 5px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #aaa;
-        }
-        .close-modal:hover { color: black; }
-
-        /* --- COOKIE BANNER --- */
-        #cookie-banner {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 800px;
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 5000;
-            border-radius: 5px;
-            border-left: 5px solid var(--primary-color);
-        }
-        .cookie-btn-group { display: flex; gap: 10px; }
-        
-        /* --- ANIMATIONS --- */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .fade-in.appear { opacity: 1; transform: translateY(0); }
-
-        /* --- MOBILE --- */
         @media screen and (max-width: 768px) {
+            section { padding: 60px 5%; } /* Weniger Padding an den Seiten */
+            
             .nav-links {
-                position: absolute;
-                right: 0px;
-                height: 100vh;
-                top: 0;
-                background-color: white;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 70%;
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in;
+                position: fixed; right: 0; top: 0; height: 100vh; width: 75%;
+                background-color: white; flex-direction: column; align-items: center; justify-content: center;
+                transform: translateX(100%); transition: transform 0.4s ease-in-out;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                z-index: 999;
             }
             .nav-links.nav-active { transform: translateX(0%); }
-            .burger { display: block; z-index: 2000; }
-            .about-container, .contact-container { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.5rem; }
-            .price-card.featured { transform: none; }
-            #cookie-banner { flex-direction: column; text-align: center; gap: 15px; }
+            .nav-links a { color: var(--text-dark); font-size: 1.2rem; margin: 15px 0; }
+            
+            .burger { display: block; z-index: 2000; position: relative; }
+            .burger.toggle div:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); background-color: var(--text-dark); }
+            .burger.toggle div:nth-child(2) { opacity: 0; }
+            .burger.toggle div:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); background-color: var(--text-dark); }
+
+            /* Fixes für Mobile Formular */
+            .form-row { grid-template-columns: 1fr; gap: 15px; } /* Inputs untereinander */
+            input, select, textarea { width: 100%; box-sizing: border-box; } /* Erzwinge Box-Sizing */
+            
+            .price-card { margin-bottom: 20px; }
         }
+
+        /* --- MODALS & COOKIE (Stile bleiben gleich, nur z-index erhöht) --- */
+        .modal { display: none; position: fixed; z-index: 5000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; padding: 30px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; }
+        
+        #cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 15px; z-index: 6000; align-items: center; text-align: center; }
+        @media(min-width: 768px) { #cookie-banner { flex-direction: row; justify-content: space-between; text-align: left; padding: 20px 5%; } }
     </style>
 </head>
 <body>
 
-    <header id="navbar">
-        <div class="logo">Heartbeat<span style="color:var(--primary-color)">.</span></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#home">Start</a></li>
-                <li><a href="#about">Über mich</a></li>
-                <li><a href="#portfolio">Galerie</a></li>
-                <li><a href="#preise">Investition</a></li>
-                <li><a href="#contact" class="btn">Kontakt</a></li>
-            </ul>
-        </nav>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+    <div class="hero" id="home">
+        <div class="slider-bg active" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+        <div class="slider-bg" style="background-image: url('https://images.unsplash.com/photo-1511285560982-1351cdeb9821?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+        <div class="slider-bg" style="background-image: url('https://images.unsplash.com/photo-1609151162377-794bd5692985?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+
+        <header>
+            <div class="logo">Heartbeat<span style="color:var(--primary-color)">.</span></div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#bereiche">Bereiche</a></li>
+                    <li><a href="#about">Über Mich</a></li>
+                    <li><a href="#preise">Preise</a></li>
+                    <li><a href="#contact" style="border: 1px solid white; padding: 8px 20px;">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </header>
+
+        <div class="hero-content">
+            <p class="accent-text fade-in">So schön, dass ihr hier seid!</p>
+            <h1>Eure Geschichte.<br>Echte Gefühle.</h1>
+            <p>Natürliche Fotografie für Herzmenschen.</p>
+            <a href="#contact" class="btn">Termin anfragen</a>
         </div>
-    </header>
+    </div>
 
-    <section id="home" class="hero">
-        <p class="accent-text fade-in">So schön, dass ihr hier seid!</p>
-        <h1 class="fade-in">Eure Geschichte. Echte Gefühle.</h1>
-        <p class="fade-in">Authentische Fotografie, die euer Herz berührt.</p>
-        <a href="#portfolio" class="btn fade-in" style="margin-top: 20px;">Portfolio ansehen</a>
-    </section>
-
-    <section class="intro fade-in">
+    <section class="intro">
         <div class="intro-text">
-            <h2 style="font-size: 2rem; margin-bottom: 20px;">Kein Kitsch. Nur Ihr.</h2>
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">Echt. Emotional. Unvergesslich.</h2>
             <p>
-                Ich glaube an die Magie des Augenblicks. An das leise Flüstern kurz vor dem Kuss und das laute Lachen beim Tanzen im Regen. 
-                Bei <strong>Heartbeat Moments</strong> geht es nicht um perfekte Posen, sondern um eure Verbindung. 
-                Ich bin hier, um eure Erinnerungen so festzuhalten, wie sie sich angefühlt haben: Ehrlich, roh und wunderschön.
+                Zwischen all dem Trubel des Alltags gibt es diese kleinen Momente, die das Herz höher schlagen lassen. 
+                Ein verträumter Blick, ein lautes Kinderlachen oder die Freudenträne am Altar. 
+                Genau diese Augenblicke fange ich für euch ein – ungestellt, authentisch und voller Liebe.
             </p>
         </div>
     </section>
 
-    <section id="about" class="fade-in">
+    <section id="bereiche" style="background: white;">
         <div class="section-title">
-            <h2>Hi, ich bin [Dein Name]</h2>
+            <p class="accent-text">Was ich liebe</p>
+            <h2>Meine Bereiche</h2>
             <span></span>
         </div>
-        <div class="about-container">
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Fotografin Portrait">
+        <div class="categories-grid">
+            <div class="cat-item">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hochzeitsfotografie">
+                <div class="cat-overlay">
+                    <h3>Hochzeiten</h3>
+                </div>
             </div>
-            <div class="about-text">
-                <p class="accent-text">Fotografin mit Herz & Seele</p>
-                <br>
-                <h3>Eure Begleiterin für die großen und kleinen Momente.</h3>
-                <br>
-                <p>
-                    Schön, dass ihr zu mir gefunden habt! Ich liebe es, Menschen zu beobachten und ihre Emotionen sichtbar zu machen. 
-                    Wenn ich nicht gerade hinter der Kamera stehe, findet ihr mich wahrscheinlich mit einem guten Kaffee in der Hand oder draußen in der Natur.
-                </p>
-                <br>
-                <p>
-                    Mein Ziel? Dass ihr euch vor meiner Kamera wohlfühlt – als würdet ihr Zeit mit einer guten Freundin verbringen. 
-                    Lasst uns zusammen etwas Unvergessliches erschaffen.
-                </p>
-                <br>
-                <a href="#contact" class="btn-outline" style="padding: 10px 25px;">Schreib mir</a>
+            <div class="cat-item">
+                <img src="https://images.unsplash.com/photo-1621621667797-e06afc217fb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Paarfotografie">
+                <div class="cat-overlay">
+                    <h3>Love Stories</h3>
+                </div>
+            </div>
+            <div class="cat-item">
+                <img src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Familienfotografie">
+                <div class="cat-overlay">
+                    <h3>Familien</h3>
+                </div>
+            </div>
+            <div class="cat-item">
+                <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Babybauch Fotografie">
+                <div class="cat-overlay">
+                    <h3>Kugelzeit</h3>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="portfolio" style="background-color: #fafafa;">
-        <div class="section-title">
-            <p class="accent-text">Galerie</p>
-            <h2>Echte Momente</h2>
-            <span></span>
-        </div>
-        
-        <div class="portfolio-grid">
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hochzeitspaar">
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Verlobung">
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Braut">
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1606103920295-97f88c0ce9b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Couple Session">
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1529636721158-b8a220b7bac4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Details">
-            </div>
-            <div class="portfolio-item fade-in">
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hochzeitsfeier">
-            </div>
-        </div>
-    </section>
-
-    <section id="preise">
+    <section id="preise" style="background-color: #fafafa;">
         <div class="section-title">
             <p class="accent-text">Investition</p>
             <h2>Eure Pakete</h2>
-            <p style="max-width: 600px; margin: 0 auto; margin-top: 10px; color: var(--text-light);">
-                Transparenz ist mir wichtig. Keine versteckten Kosten, nur klare Pakete für eure Erinnerungen.
-            </p>
+            <p style="color: #666;">Transparente Preise für bleibende Erinnerungen.</p>
             <span></span>
         </div>
 
         <div class="pricing-grid">
-            <div class="price-card fade-in">
-                <div class="price-header">
-                    <h3>Mini Session</h3>
-                    <span class="price">299€</span>
-                </div>
+            <div class="price-card">
+                <h3>Kleine Wunder</h3>
+                <p style="font-style: italic; color: #888; margin-bottom: 10px;">Babybauch & Newborn</p>
+                <div style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px;">299€</div>
                 <ul class="price-features">
                     <li><i class="fas fa-check"></i> 1 Stunde Shooting</li>
-                    <li><i class="fas fa-check"></i> Outdoor Location</li>
+                    <li><i class="fas fa-check"></i> Outdoor oder Homestory</li>
                     <li><i class="fas fa-check"></i> 20 bearbeitete Bilder</li>
-                    <li><i class="fas fa-check"></i> Online-Galerie</li>
-                    <li><i class="fas fa-times" style="color:#ddd;"></i> Drohnenaufnahmen</li>
+                    <li><i class="fas fa-check"></i> Online Galerie</li>
                 </ul>
-                <a href="#contact" class="btn-outline" style="width:100%; display:block;">Anfragen</a>
+                <a href="#contact" class="btn-outline">Anfragen</a>
             </div>
 
-            <div class="price-card featured fade-in">
-                <div style="background:var(--primary-color); color:white; padding: 5px; font-size: 0.8rem; text-transform:uppercase; margin: -40px -20px 20px -20px;">Am Beliebtesten</div>
-                <div class="price-header">
-                    <h3>Love Story</h3>
-                    <span class="price">590€</span>
-                </div>
+            <div class="price-card" style="border: 2px solid var(--primary-color); transform: scale(1.02);">
+                <div style="background:var(--primary-color); color:white; padding: 5px; position: absolute; top:0; left:0; width:100%; font-size: 0.8rem; text-transform:uppercase;">Beliebt</div>
+                <h3 style="margin-top: 25px;">Love & Family</h3>
+                <p style="font-style: italic; color: #888; margin-bottom: 10px;">Paare & Familien</p>
+                <div style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px;">390€</div>
                 <ul class="price-features">
-                    <li><i class="fas fa-check"></i> 2-3 Stunden Shooting</li>
+                    <li><i class="fas fa-check"></i> 1,5 Stunden Shooting</li>
                     <li><i class="fas fa-check"></i> Outfitwechsel möglich</li>
-                    <li><i class="fas fa-check"></i> 50+ bearbeitete Bilder</li>
-                    <li><i class="fas fa-check"></i> Hochwertige Online-Galerie</li>
+                    <li><i class="fas fa-check"></i> 40 bearbeitete Bilder</li>
                     <li><i class="fas fa-check"></i> Inkl. Anfahrt (20km)</li>
                 </ul>
-                <a href="#contact" class="btn" style="width:100%; display:block;">Jetzt Buchen</a>
+                <a href="#contact" class="btn">Termin sichern</a>
             </div>
 
-            <div class="price-card fade-in">
-                <div class="price-header">
-                    <h3>Wedding Day</h3>
-                    <span class="price">ab 1490€</span>
-                </div>
+            <div class="price-card">
+                <h3>Wedding Day</h3>
+                <p style="font-style: italic; color: #888; margin-bottom: 10px;">Der große Tag</p>
+                <div style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px;">ab 1490€</div>
                 <ul class="price-features">
                     <li><i class="fas fa-check"></i> Reportage ab 6 Stunden</li>
                     <li><i class="fas fa-check"></i> Getting Ready & Party</li>
                     <li><i class="fas fa-check"></i> 300+ bearbeitete Bilder</li>
-                    <li><i class="fas fa-check"></i> Preview in 48 Std.</li>
-                    <li><i class="fas fa-check"></i> Drohnenaufnahmen inklusive</li>
+                    <li><i class="fas fa-check"></i> Drohnenaufnahmen (wetterabhängig)</li>
                 </ul>
-                <a href="#contact" class="btn-outline" style="width:100%; display:block;">Anfragen</a>
+                <a href="#contact" class="btn-outline">Vorgespräch</a>
             </div>
-        </div>
-
-        <div class="addons fade-in">
-            <h4>Extras & Erweiterungen</h4>
-            <p style="margin-top: 10px; color: var(--text-light);">
-                Verlängerungsstunde: 150€/Std. | Fotoalbum: ab 200€ | After-Wedding-Shoot: 350€
-            </p>
         </div>
     </section>
 
-    <section id="contact" class="contact fade-in">
+    <section id="about">
+        <div class="contact-container" style="align-items: center;">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Fotografin" style="border-radius: 5px; box-shadow: 15px 15px 0 var(--secondary-color);">
+            </div>
+            <div class="about-txt">
+                <p class="accent-text">Hi, ich bin [Name]</p>
+                <h2 style="margin-bottom: 20px;">Fotografin mit Herz & Seele</h2>
+                <p>Ich liebe das echte Leben. Das Chaos, die Stille, das Laute und das Leise. Eure Fotos sollen genau so sein wie ihr: Unverstellt und wunderschön. Lasst uns gemeinsam Erinnerungen schaffen, die ihr euch auch in 30 Jahren noch mit einem Lächeln anseht.</p>
+                <br>
+                <p><strong>Mein Stil:</strong> Natürlich, warm, emotional.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
         <div class="section-title">
             <p class="accent-text">Let's connect</p>
             <h2>Schreibt mir</h2>
@@ -588,182 +417,140 @@
         <div class="contact-container">
             <div class="contact-info">
                 <h3>Ich freue mich auf euch!</h3>
-                <br>
-                <p>Erzählt mir von euren Plänen. Je mehr Details ihr mir verratet, desto besser kann ich mich auf euch einstellen.</p>
-                <br>
-                <p><i class="fas fa-map-marker-alt"></i> Verfügbar in ganz Deutschland & Weltweit</p>
-                <p><i class="fas fa-envelope"></i> hallo@heartbeat-moments.de</p>
-                <p><i class="fas fa-phone"></i> +49 123 456789</p>
-                <br>
-                <p style="font-size: 0.9rem; color: #777;">Ich antworte in der Regel innerhalb von 48 Stunden.</p>
+                <p style="margin: 20px 0;">Habt ihr Fragen zu den Paketen oder wollt direkt einen Termin checken? Schreibt mir einfach!</p>
+                <p><i class="fas fa-envelope" style="color:var(--primary-color); width:25px;"></i> hallo@heartbeat-moments.de</p>
+                <p><i class="fas fa-phone" style="color:var(--primary-color); width:25px;"></i> +49 123 456789</p>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--primary-color); width:25px;"></i> Unterwegs in ganz Deutschland</p>
             </div>
             
-            <form action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST">
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                    <input type="text" name="name" placeholder="Eure Namen" required>
-                    <input type="email" name="email" placeholder="Eure E-Mail" required>
-                </div>
-                <input type="text" name="date" placeholder="Datum (falls bekannt)">
-                <select name="type">
-                    <option value="" disabled selected>Art des Shootings</option>
-                    <option value="wedding">Hochzeit</option>
-                    <option value="couple">Paarshooting</option>
-                    <option value="family">Familie</option>
-                    <option value="other">Sonstiges</option>
-                </select>
-                <textarea name="message" placeholder="Eure Nachricht an mich... Erzählt mir ein bisschen von euch!" required></textarea>
-                <button type="submit" class="btn">Nachricht senden</button>
-            </form>
+            <div class="contact-form-wrapper">
+                <form action="https://formspree.io/f/DEINE_ID" method="POST">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Eure Namen" required>
+                        <input type="email" name="email" placeholder="Eure E-Mail" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="phone" placeholder="Telefonnummer">
+                        <input type="text" name="date" placeholder="Wunschdatum">
+                    </div>
+                    <select name="type">
+                        <option value="" disabled selected>Worum geht es?</option>
+                        <option value="wedding">Hochzeit</option>
+                        <option value="couple">Paarshooting</option>
+                        <option value="family">Familie</option>
+                        <option value="baby">Babybauch / Newborn</option>
+                    </select>
+                    <textarea name="message" placeholder="Eure Nachricht an mich... Erzählt mir ein bisschen von euren Plänen!" required></textarea>
+                    <button type="submit" class="btn">Absenden</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="footer-links">
             <a href="#" class="trigger-modal" data-target="modal-impressum">Impressum</a>
-            <a href="#" class="trigger-modal" data-target="modal-datenschutz">Datenschutzerklärung</a>
-            <a href="https://instagram.com/heartbeat.moments" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="trigger-modal" data-target="modal-datenschutz">Datenschutz</a>
         </div>
-        <div class="copyright">
-            &copy; 2025 Heartbeat Moments. Alle Rechte vorbehalten.
+        <div class="footer-socials">
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
         </div>
+        <div style="margin-top: 30px; font-size: 0.7rem; color: #555;">&copy; 2025 Heartbeat Moments</div>
     </footer>
 
     <div id="modal-impressum" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2>Impressum</h2>
-            <br>
-            <p>Angaben gemäß § 5 TMG</p>
-            <br>
-            <p><strong>Heartbeat Moments</strong><br>
-            Vorname Nachname<br>
-            Musterstraße 1<br>
-            12345 Musterstadt</p>
-            <br>
-            <p><strong>Kontakt:</strong><br>
-            Telefon: +49 123 456789<br>
-            E-Mail: hallo@heartbeat-moments.de</p>
-            <br>
-            <p><strong>Umsatzsteuer-ID:</strong><br>
-            Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: DE123456789</p>
+            <br><p>Hier bitte die echten Daten einfügen.</p>
         </div>
     </div>
-
+    
     <div id="modal-datenschutz" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
-            <h2>Datenschutzerklärung</h2>
-            <br>
-            <h3>1. Datenschutz auf einen Blick</h3>
-            <p>Allgemeine Hinweise: Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen...</p>
-            <br>
-            <h3>2. Hosting</h3>
-            <p>Wir hosten die Inhalte unserer Website bei GitHub Pages.</p>
-            <br>
-            <p><em>(Hier bitte den vollständigen DSGVO Text einfügen)</em></p>
+            <h2>Datenschutz</h2>
+            <br><p>Datenschutzerklärung Text...</p>
         </div>
     </div>
 
     <div id="cookie-banner">
-        <div>
-            <p><strong>Kekse? Ja, aber nur digitale.</strong> 🍪</p>
-            <p style="font-size: 0.85rem; color: #666;">Wir nutzen Cookies, um dir das beste Erlebnis auf unserer Webseite zu bieten.</p>
-        </div>
-        <div class="cookie-btn-group">
-            <button id="accept-cookies" class="btn" style="padding: 8px 15px; font-size: 0.8rem;">Alles klar!</button>
-            <button id="decline-cookies" class="btn-outline" style="padding: 8px 15px; font-size: 0.8rem;">Nur notwendige</button>
+        <p>Wir nutzen Cookies für ein besseres Erlebnis. 🍪</p>
+        <div style="display:flex; gap:10px;">
+            <button id="accept-cookies" class="btn" style="padding: 8px 15px; font-size: 0.75rem;">OK</button>
+            <button id="decline-cookies" class="btn-outline" style="padding: 8px 15px; font-size: 0.75rem;">Nein</button>
         </div>
     </div>
 
     <script>
-        // --- Navigation Scroll Effect ---
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        // --- HERO SLIDER SCRIPT ---
+        const slides = document.querySelectorAll('.slider-bg');
+        let currentSlide = 0;
+        const slideInterval = 5000; // Alle 5 Sekunden wechseln
 
-        // --- Mobile Menu ---
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        setInterval(nextSlide, slideInterval);
+
+        // --- MOBILE MENU ---
         const burger = document.querySelector('.burger');
         const nav = document.querySelector('.nav-links');
-        const navLinks = document.querySelectorAll('.nav-links li');
+        const navLinks = document.querySelectorAll('.nav-links a');
 
         burger.addEventListener('click', () => {
             nav.classList.toggle('nav-active');
             burger.classList.toggle('toggle');
         });
 
-        // Close menu when clicking a link
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
             });
         });
 
-        // --- Fade In Animation ---
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = {
-            threshold: 0.2,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('appear');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
+        // --- SCROLL EFFECT NAVBAR ---
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // --- Modals Logic ---
-        const modalTriggers = document.querySelectorAll('.trigger-modal');
-        const closeButtons = document.querySelectorAll('.close-modal');
+        // --- MODAL LOGIC ---
+        const triggers = document.querySelectorAll('.trigger-modal');
         const modals = document.querySelectorAll('.modal');
+        const closes = document.querySelectorAll('.close-modal');
 
-        modalTriggers.forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
+        triggers.forEach(trig => {
+            trig.addEventListener('click', (e) => {
                 e.preventDefault();
-                const targetId = trigger.getAttribute('data-target');
-                document.getElementById(targetId).classList.add('active');
+                document.getElementById(trig.dataset.target).classList.add('active');
             });
         });
+        
+        closes.forEach(c => c.addEventListener('click', () => {
+            modals.forEach(m => m.classList.remove('active'));
+        }));
 
-        closeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                modals.forEach(modal => modal.classList.remove('active'));
-            });
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                e.target.classList.remove('active');
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                modals.forEach(m => m.classList.remove('active'));
             }
-        });
-
-        // --- Cookie Banner Logic ---
-        const cookieBanner = document.getElementById('cookie-banner');
-        const acceptBtn = document.getElementById('accept-cookies');
-        const declineBtn = document.getElementById('decline-cookies');
-
-        if (!localStorage.getItem('cookiesAccepted')) {
-            cookieBanner.style.display = 'flex';
-        } else {
-            cookieBanner.style.display = 'none';
         }
 
-        acceptBtn.addEventListener('click', () => {
+        // --- COOKIE ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        if(!localStorage.getItem('cookiesAccepted')) cookieBanner.style.display = 'flex';
+        
+        document.getElementById('accept-cookies').addEventListener('click', () => {
             localStorage.setItem('cookiesAccepted', 'true');
             cookieBanner.style.display = 'none';
         });
-
-        declineBtn.addEventListener('click', () => {
-            localStorage.setItem('cookiesAccepted', 'false'); // Oder entsprechende Logik
+        document.getElementById('decline-cookies').addEventListener('click', () => {
             cookieBanner.style.display = 'none';
         });
 
