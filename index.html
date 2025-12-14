@@ -3,449 +3,573 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PIX FOTOSTUDIO | Professional Visuals</title>
-    <meta name="description" content="High-End Business Fotografie in Balingen. Headshots, Corporate Identity und Kampagnen.">
+    <title>PIX FOTOSTUDIO | Visual Authority</title>
+    <meta name="description" content="High-End Corporate Photography. Wir inszenieren Erfolg. Balingen & International.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
-        /* --- CORE VARIABLES & RESET --- */
+        /* --- HIGH END VARIABLES --- */
         :root {
-            --bg-dark: #050505;
-            --bg-card: #0f0f0f;
-            --text-main: #ffffff;
-            --text-muted: #a1a1aa;
-            --accent: #3b82f6; /* Tech Blue */
-            --accent-glow: 0 0 20px rgba(59, 130, 246, 0.5);
-            --font-head: 'Syne', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg-body: #050505;
+            --bg-surface: #0f0f0f;
+            --txt-main: #ffffff;
+            --txt-muted: #888888;
+            --accent: #3b82f6; /* Electric Blue */
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            --border: rgba(255,255,255,0.08);
+            
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        html { scroll-behavior: smooth; }
+        html.lenis { height: auto; } /* For Smooth Scroll */
         
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-body);
+            color: var(--txt-main);
             font-family: var(--font-body);
             overflow-x: hidden;
             width: 100%;
-        }
-
-        /* --- THREE.JS BACKGROUND --- */
-        #canvas-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; opacity: 0.4; pointer-events: none;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- TYPOGRAPHY --- */
-        h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; line-height: 1.1; }
-        h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; }
-        h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 20px; }
-        p { color: var(--text-muted); line-height: 1.6; font-size: 1rem; margin-bottom: 20px; }
+        h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; text-transform: uppercase; }
+        h1 { font-size: clamp(3rem, 8vw, 7rem); font-weight: 800; letter-spacing: -2px; }
+        h2 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; margin-bottom: 30px; }
+        h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
+        p { color: var(--txt-muted); line-height: 1.7; font-size: 1.05rem; margin-bottom: 20px; max-width: 600px; }
         
-        .accent-text { color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 10px; }
+        .label {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; 
+            color: var(--accent); font-weight: 700; margin-bottom: 15px; display: block;
+        }
 
-        /* --- BUTTONS --- */
+        /* --- UI COMPONENTS --- */
         .btn {
-            display: inline-block; padding: 16px 32px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: white; text-transform: uppercase; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
-            text-decoration: none; transition: var(--transition); position: relative; overflow: hidden;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 18px 40px; background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            color: white; text-transform: uppercase; font-family: var(--font-display); 
+            font-weight: 700; font-size: 0.8rem; letter-spacing: 1px; cursor: pointer;
+            transition: var(--ease-out) 0.5s; position: relative; overflow: hidden;
         }
-        .btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
+        .btn::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
+            background: var(--accent); transition: var(--ease-out) 0.5s; z-index: -1;
         }
-        .btn:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); box-shadow: var(--accent-glow); }
-        .btn:hover::before { left: 100%; }
+        .btn:hover { border-color: var(--accent); }
+        .btn:hover::after { height: 100%; }
+
+        .container { width: 90%; max-width: 1600px; margin: 0 auto; position: relative; z-index: 2; }
+        .section-padding { padding: 140px 0; }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-logo { font-family: var(--font-display); font-weight: 800; font-size: 2rem; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        /* --- THREE.JS LAYER --- */
+        #webgl-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; pointer-events: none;
+        }
 
         /* --- HEADER --- */
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(5,5,5,0.7); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 30px 5%; display: flex; justify-content: space-between; align-items: center;
+            mix-blend-mode: exclusion;
         }
-        .logo { font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
-
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover { color: white; }
+        .logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; color: white; }
         
-        .burger { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .nav-desktop { display: flex; gap: 40px; }
+        .nav-desktop a { 
+            color: white; text-decoration: none; text-transform: uppercase; font-size: 0.8rem; 
+            letter-spacing: 1px; font-weight: 600; position: relative;
+        }
+        .nav-desktop a::before {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; 
+            background: white; transition: 0.3s;
+        }
+        .nav-desktop a:hover::before { width: 100%; }
 
-        /* --- HERO SLIDER (SWIPER) --- */
-        .hero-slider {
-            width: 100%; height: 100vh; position: relative;
-        }
-        .swiper-slide {
-            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
-        }
-        .slide-bg {
+        .burger { display: none; cursor: pointer; color: white; font-size: 1.5rem; }
+
+        /* --- HERO --- */
+        .hero { height: 100vh; width: 100%; position: relative; overflow: hidden; }
+        .swiper-slide { height: 100vh; width: 100%; display: flex; align-items: center; }
+        
+        .hero-img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center;
-            transform: scale(1.1); transition: transform 6s ease-out;
-            filter: brightness(0.5); /* Bild abdunkeln für Textlesbarkeit */
+            object-fit: cover; z-index: 1; filter: brightness(0.6);
+            transform: scale(1.1); transition: transform 2s ease;
         }
-        .swiper-slide-active .slide-bg { transform: scale(1); }
+        .swiper-slide-active .hero-img { transform: scale(1); }
         
-        .slide-content {
-            position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 0 20px;
-            opacity: 0; transform: translateY(30px); transition: 1s ease 0.5s;
+        .hero-content { 
+            position: relative; z-index: 10; padding-left: 5%; max-width: 1000px;
+            opacity: 0; transform: translateY(50px); transition: all 1s var(--ease-out) 0.3s;
         }
-        .swiper-slide-active .slide-content { opacity: 1; transform: translateY(0); }
+        .swiper-slide-active .hero-content { opacity: 1; transform: translateY(0); }
+        
+        .hero-stats {
+            position: absolute; bottom: 50px; right: 5%; z-index: 10;
+            display: flex; gap: 60px;
+        }
+        .stat-item h4 { font-size: 2.5rem; margin-bottom: 0; color: white; }
+        .stat-item span { font-size: 0.8rem; text-transform: uppercase; color: var(--txt-muted); letter-spacing: 1px; }
 
-        .slide-content h1 { text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; }
-        .slide-content p { font-size: 1.2rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5); color: #ddd; }
+        /* --- INTRO / ABOUT --- */
+        .intro-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: center; }
+        .intro-img-wrap { position: relative; overflow: hidden; }
+        .intro-img-wrap img { width: 100%; display: block; filter: grayscale(100%); transition: 0.5s; }
+        .intro-img-wrap:hover img { filter: grayscale(0%); transform: scale(1.02); }
 
-        /* --- SECTIONS --- */
-        section { padding: 100px 5%; position: relative; }
-        .grid-container { display: grid; gap: 40px; }
+        /* --- SERVICES (THE TRINITY) --- */
+        .services-list { border-top: 1px solid var(--border); }
+        .service-item {
+            padding: 60px 0; border-bottom: 1px solid var(--border);
+            display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center;
+            transition: 0.3s; cursor: pointer;
+        }
+        .service-item:hover { background: rgba(255,255,255,0.02); }
+        .service-item h3 { font-size: 2.5rem; margin: 0; color: var(--txt-muted); transition: 0.3s; }
+        .service-item:hover h3 { color: white; padding-left: 20px; }
+        .service-desc { opacity: 0; transition: 0.3s; transform: translateX(-20px); }
+        .service-item:hover .service-desc { opacity: 1; transform: translateX(0); }
+        .service-link { text-align: right; font-size: 2rem; color: var(--accent); opacity: 0; }
+        .service-item:hover .service-link { opacity: 1; }
 
-        /* --- ABOUT --- */
-        .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-img { position: relative; border-radius: 4px; overflow: hidden; }
-        .about-img img { width: 100%; display: block; filter: grayscale(100%); transition: var(--transition); }
-        .about-img:hover img { filter: grayscale(0%); transform: scale(1.03); }
+        /* --- PACKAGES (PRICING) --- */
+        .pkg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .pkg-card {
+            background: var(--bg-surface); border: 1px solid var(--border); padding: 50px 40px;
+            transition: 0.4s; position: relative;
+        }
+        .pkg-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+        .pkg-card.featured { border-color: var(--accent); background: linear-gradient(180deg, #151515 0%, #0a0a0a 100%); }
+        
+        .price { font-size: 3rem; font-family: var(--font-display); font-weight: 700; margin: 20px 0; display: block; }
+        .price span { font-size: 1rem; color: var(--txt-muted); font-weight: 400; font-family: var(--font-body); }
+        
+        .feature-list { list-style: none; margin: 30px 0; }
+        .feature-list li { margin-bottom: 15px; color: #ccc; display: flex; align-items: center; gap: 10px; }
+        .feature-list li i { color: var(--accent); }
 
-        /* --- PORTFOLIO (Masonryish Grid) --- */
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
-        }
-        .p-item {
-            position: relative; height: 400px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .p-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .p-item:hover img { transform: scale(1.1); }
-        .p-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            transform: translateY(100%); transition: var(--transition);
-        }
-        .p-item:hover .p-overlay { transform: translateY(0); }
+        /* --- PORTFOLIO GALLERY --- */
+        .gallery-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 50px; }
+        .g-item { height: 400px; position: relative; overflow: hidden; }
+        .g-item:nth-child(1) { grid-column: span 2; }
+        .g-item:nth-child(4) { grid-column: span 2; }
+        .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+        .g-item:hover img { transform: scale(1.1); }
 
         /* --- CONTACT --- */
-        .contact-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; background: var(--bg-card); padding: 60px; border: 1px solid rgba(255,255,255,0.05); }
+        .contact-split { display: grid; grid-template-columns: 1fr 1fr; }
+        .contact-img { height: 100%; min-height: 600px; background: url('https://denkenfeld.github.io/geprofoto1/img/kontakt2.jpg') center/cover no-repeat; filter: grayscale(100%); }
+        .contact-form-wrap { padding: 100px 5%; background: var(--bg-surface); display: flex; flex-direction: column; justify-content: center; }
         
-        form { display: grid; gap: 20px; }
-        input, textarea {
-            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; color: white; font-family: var(--font-body); outline: none; transition: 0.3s;
+        input, select, textarea {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 20px 0; color: white; font-family: var(--font-body); font-size: 1rem; margin-bottom: 30px;
+            transition: 0.3s;
         }
-        input:focus, textarea:focus { border-color: var(--accent); background: rgba(255,255,255,0.05); }
-
+        input:focus, select:focus, textarea:focus { border-bottom-color: var(--accent); outline: none; }
+        
         /* --- FOOTER --- */
-        footer { background: #000; padding: 60px 5%; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
-        .footer-logo img { width: 100px; filter: invert(1); opacity: 0.7; margin-bottom: 20px; } /* Logo weiß machen */
-        .footer-links a { color: var(--text-muted); margin: 0 15px; font-size: 0.9rem; text-decoration: none; }
-        .footer-links a:hover { color: white; }
+        footer { padding: 80px 5%; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+        .f-col h5 { color: white; margin-bottom: 20px; font-family: var(--font-display); }
+        .f-col a { display: block; color: var(--txt-muted); text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
+        .f-col a:hover { color: var(--accent); }
 
         /* --- MOBILE --- */
-        @media (max-width: 900px) {
-            .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
-            .nav-links {
-                position: fixed; top: 0; right: 0; height: 100vh; width: 80%; background: #0f0f0f;
-                flex-direction: column; justify-content: center; align-items: center;
-                transform: translateX(100%); transition: 0.3s;
+        @media (max-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+            .intro-grid { grid-template-columns: 1fr; }
+            .service-item { grid-template-columns: 1fr; gap: 10px; }
+            .service-desc { opacity: 1; transform: none; display: block; margin-bottom: 10px; }
+            .service-link { display: none; }
+            .contact-split { grid-template-columns: 1fr; }
+            .contact-img { min-height: 300px; }
+            .gallery-wrap { grid-template-columns: 1fr; }
+            .g-item:nth-child(n) { grid-column: auto; }
+            
+            .nav-desktop { display: none; }
+            .burger { display: block; z-index: 1001; }
+            .mobile-menu {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000;
+                display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px;
+                transform: translateY(-100%); transition: 0.5s var(--ease-out); z-index: 1000;
             }
-            .nav-links.active { transform: translateX(0); }
-            .burger { display: block; z-index: 2000; }
-            h1 { font-size: 2.5rem; }
+            .mobile-menu.active { transform: translateY(0); }
+            .mobile-menu a { font-size: 2rem; color: white; text-decoration: none; font-family: var(--font-display); text-transform: uppercase; }
         }
-
-        /* --- MODALS --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; }
-        .modal.active { display: flex; }
-        .modal-content { background: var(--bg-card); padding: 40px; width: 90%; max-width: 600px; border: 1px solid var(--accent); position: relative; max-height: 80vh; overflow-y: auto; }
-        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <div id="canvas-container"></div>
+    <div id="preloader">
+        <div class="loader-logo">PIX.OS</div>
+    </div>
+
+    <canvas id="webgl-canvas"></canvas>
 
     <header>
-        <div class="logo">PIX<span>FOTOSTUDIO</span></div>
-        <div class="burger"><i class="fas fa-bars"></i></div>
-        <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">Studio</a>
-            <a href="#portfolio">Work</a>
+        <div class="logo">PIX FOTOSTUDIO</div>
+        <nav class="nav-desktop">
+            <a href="#studio">Studio</a>
+            <a href="#services">Expertise</a>
+            <a href="#pricing">Pakete</a>
             <a href="#contact">Kontakt</a>
         </nav>
+        <div class="burger"><i class="fas fa-bars"></i></div>
     </header>
 
-    <div class="swiper hero-slider" id="home">
+    <div class="mobile-menu">
+        <a href="#studio">Studio</a>
+        <a href="#services">Leistungen</a>
+        <a href="#pricing">Preise</a>
+        <a href="#contact">Kontakt</a>
+    </div>
+
+    <div class="swiper hero-slider">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
-                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg');"></div>
-                <div class="slide-content">
-                    <span class="accent-text">Visionary Photography</span>
-                    <h1>Bildsprache,<br>die wirkt.</h1>
-                    <p>Außergewöhnliche Inszenierung für Marken, die gesehen werden wollen.</p>
-                    <a href="#portfolio" class="btn">Portfolio ansehen</a>
+                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg" class="hero-img" alt="Fashion Art">
+                <div class="hero-content">
+                    <span class="label">High End Visuals</span>
+                    <h1>Make Them<br>Stare.</h1>
+                    <p>Bildsprache, die man nicht ignorieren kann. Für Marken mit Anspruch.</p>
+                    <a href="#services" class="btn">Explore Services</a>
                 </div>
             </div>
             <div class="swiper-slide">
-                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/unnamed-1.jpg');"></div>
-                <div class="slide-content">
-                    <span class="accent-text">Corporate Identity</span>
-                    <h1>Ihr Team.<br>Ihre Stärke.</h1>
-                    <p>Authentische Business-Fotografie, die Vertrauen schafft.</p>
-                    <a href="#contact" class="btn">Anfrage stellen</a>
+                <img src="https://denkenfeld.github.io/geprofoto1/img/s5.jpg" class="hero-img" alt="CEO Portrait">
+                <div class="hero-content">
+                    <span class="label">Corporate Identity</span>
+                    <h1>Lead With<br>Presence.</h1>
+                    <p>Executive Portraits, die Kompetenz und Vertrauen ausstrahlen.</p>
+                    <a href="#contact" class="btn">Termin vereinbaren</a>
                 </div>
             </div>
             <div class="swiper-slide">
-                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/s5.jpg');"></div>
-                <div class="slide-content">
-                    <span class="accent-text">Executive Portraits</span>
-                    <h1>Führung<br>Ausstrahlen.</h1>
-                    <p>Moderne Headshots für Vorstände und Macher.</p>
+                <img src="https://denkenfeld.github.io/geprofoto1/img/unnamed-1.jpg" class="hero-img" alt="Team Photo">
+                <div class="hero-content">
+                    <span class="label">Employer Branding</span>
+                    <h1>Power of<br>Unity.</h1>
+                    <p>Zeigen Sie die Menschen hinter Ihrem Erfolg.</p>
                 </div>
             </div>
         </div>
-        <div class="swiper-pagination"></div>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <h4>15+</h4>
+                <span>Jahre Erfahrung</span>
+            </div>
+            <div class="stat-item">
+                <h4>500+</h4>
+                <span>Corporate Clients</span>
+            </div>
+        </div>
     </div>
 
-    <section id="about">
-        <div class="about-wrap">
-            <div class="about-txt fade-up">
-                <span class="accent-text">Das Studio</span>
-                <h2>Mehr als nur<br>ein Foto.</h2>
-                <p>
-                    Bei PIX FOTOSTUDIO verbinden wir technisches Know-how mit psychologischem Feingefühl. 
-                    Ein gutes Business-Foto entsteht nicht durch die Kamera, sondern durch die Interaktion vor der Linse.
-                </p>
-                <p>
-                    Ob im Studio in Balingen oder On-Location bei Ihnen im Unternehmen: Wir sorgen für eine entspannte Atmosphäre und Ergebnisse, 
-                    die Ihre Professionalität unterstreichen.
-                </p>
-                <br>
-                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-pbig.jpg" alt="Logo" style="width: 150px; mix-blend-mode: screen;">
-            </div>
-            <div class="about-img fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/irene-infobild.jpg" alt="Fotografin bei der Arbeit">
+    <section id="studio" class="section-padding">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-txt" data-aos="fade-up">
+                    <span class="label">Die Philosophie</span>
+                    <h2>Fotos sind Assets.<br>Keine Deko.</h2>
+                    <p>
+                        In der digitalen Ökonomie ist Ihr Bild oft der erste Händedruck. Es entscheidet in Millisekunden über Vertrauen, Kompetenz und Sympathie.
+                        Wir bei PIX FOTOSTUDIO verstehen uns nicht nur als Fotografen, sondern als visuelle Strategen.
+                    </p>
+                    <p>
+                        Unser Ziel: Visuelle Inhalte zu schaffen, die für Sie arbeiten. Die Bewerber anziehen, Kunden überzeugen und Investoren beeindrucken.
+                    </p>
+                    <br>
+                    <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-pbig.jpg" style="width: 120px; filter: invert(1); opacity: 0.8;" alt="Logo">
+                </div>
+                <div class="intro-img-wrap" data-aos="fade-up">
+                    <img src="https://denkenfeld.github.io/geprofoto1/img/studio1.jpg" alt="Irene bei der Arbeit">
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="portfolio">
-        <div style="text-align: center; margin-bottom: 60px;">
-            <span class="accent-text">Selected Work</span>
-            <h2>Expertise</h2>
+    <section id="services" class="section-padding" style="background: var(--bg-surface);">
+        <div class="container">
+            <span class="label">Was wir tun</span>
+            <h2>Core Expertise</h2>
+            
+            <div class="services-list">
+                <div class="service-item">
+                    <h3>01. The Face</h3>
+                    <div class="service-desc">
+                        <p>Einzelportraits, Bewerbung, CEO Headshots. Der Fokus liegt auf dem Individuum.</p>
+                    </div>
+                    <div class="service-link"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="service-item">
+                    <h3>02. The Team</h3>
+                    <div class="service-desc">
+                        <p>Mitarbeiterfotos, Vorstände, Gruppenbilder. Einheitlicher Look für Ihre Firma.</p>
+                    </div>
+                    <div class="service-link"><i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="service-item">
+                    <h3>03. The Brand</h3>
+                    <div class="service-desc">
+                        <p>Werbekampagnen, Produktfotografie, Architektur & Drohnenaufnahmen.</p>
+                    </div>
+                    <div class="service-link"><i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+            
+            <div class="gallery-wrap">
+                <div class="g-item"><img src="https://denkenfeld.github.io/geprofoto1/img/Collage10x4pf.jpg" alt="Team"></div>
+                <div class="g-item"><img src="https://denkenfeld.github.io/geprofoto1/img/s4.jpg" alt="Portrait"></div>
+                <div class="g-item"><img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-9.jpg" alt="Business"></div> <div class="g-item"><img src="https://denkenfeld.github.io/geprofoto1/img/unnamed.jpg" alt="Suit"></div>
+            </div>
         </div>
+    </section>
 
-        <div class="portfolio-grid">
-            <div class="p-item fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/s4.jpg" alt="Business Portrait Frau">
-                <div class="p-overlay">
-                    <h3>Corporate Portrait</h3>
-                    <p class="accent-text">Studio</p>
-                </div>
+    <section id="pricing" class="section-padding">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <span class="label">Investition</span>
+                <h2>Signature Pakete</h2>
             </div>
-             <div class="p-item fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/unnamed.jpg" alt="Business Portrait Mann">
-                <div class="p-overlay">
-                    <h3>Executive Headshot</h3>
-                    <p class="accent-text">Studio</p>
+
+            <div class="pkg-grid">
+                <div class="pkg-card">
+                    <h4>Essential Headshot</h4>
+                    <span class="price">149€ <span>/ Person</span></span>
+                    <p>Der perfekte Einstieg für LinkedIn, XING und CV.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 30 Min. Studio Session</li>
+                        <li><i class="fas fa-check"></i> 1 Outfit Wechsel</li>
+                        <li><i class="fas fa-check"></i> 1 High-End Retusche</li>
+                        <li><i class="fas fa-check"></i> Nutzungsrechte Privat & Social</li>
+                    </ul>
+                    <a href="#contact" class="btn" style="width:100%; justify-content:center;">Buchen</a>
                 </div>
-            </div>
-            <div class="p-item fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/1436a776-00c5-43db-bc39-22aa76b0bfe6_l.jpg" alt="Bewerbungsfoto Modern">
-                <div class="p-overlay">
-                    <h3>Modern Application</h3>
-                    <p class="accent-text">Grey Backdrop</p>
+
+                <div class="pkg-card featured">
+                    <span class="label" style="margin-bottom:5px;">Most Popular</span>
+                    <h4>Professional Brand</h4>
+                    <span class="price">290€ <span>/ Session</span></span>
+                    <p>Für Selbstständige und Führungskräfte, die mehr brauchen.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 60 Min. Coaching & Shooting</li>
+                        <li><i class="fas fa-check"></i> 3 Outfit Wechsel</li>
+                        <li><i class="fas fa-check"></i> 3 High-End Retuschen</li>
+                        <li><i class="fas fa-check"></i> Kommerzielle Nutzungsrechte</li>
+                    </ul>
+                    <a href="#contact" class="btn" style="width:100%; justify-content:center; background: var(--accent); border-color:var(--accent);">Jetzt Starten</a>
                 </div>
-            </div>
-            <div class="p-item fade-up" style="grid-column: span 1; md:grid-column: span 2;">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/Collage10x4pf.jpg" alt="Team Collage">
-                <div class="p-overlay">
-                    <h3>Team Aufstellung</h3>
-                    <p class="accent-text">Composing</p>
-                </div>
-            </div>
-             <div class="p-item fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/studio1.jpg" alt="Behind the Scenes">
-                <div class="p-overlay">
-                    <h3>Behind the Scenes</h3>
-                    <p class="accent-text">Workflow</p>
-                </div>
-            </div>
-             <div class="p-item fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-mitarbeiter.jpg" alt="Teamwork">
-                <div class="p-overlay">
-                    <h3>Teamwork</h3>
-                    <p class="accent-text">On Location</p>
+
+                <div class="pkg-card">
+                    <h4>Corporate Team</h4>
+                    <span class="price">Custom <span>/ Anfrage</span></span>
+                    <p>Maßgeschneiderte Lösung für Ihr gesamtes Unternehmen.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Mobile Studio On-Location</li>
+                        <li><i class="fas fa-check"></i> Einheitliche Bildsprache</li>
+                        <li><i class="fas fa-check"></i> Team- & Einzelaufnahmen</li>
+                        <li><i class="fas fa-check"></i> Buyout Nutzungsrechte</li>
+                    </ul>
+                    <a href="#contact" class="btn" style="width:100%; justify-content:center;">Angebot anfordern</a>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="contact-wrap">
-            <form action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST" class="fade-up">
-                <div>
-                    <span class="accent-text">Let's talk business</span>
-                    <h2>Projekt Starten</h2>
-                </div>
-                <input type="text" name="name" placeholder="Name / Unternehmen" required>
-                <input type="email" name="email" placeholder="E-Mail Adresse" required>
-                <select name="type">
-                    <option value="" disabled selected>Art der Anfrage</option>
-                    <option value="headshot">Einzelportraits / Bewerbung</option>
-                    <option value="corporate">Firmenreportage / Team</option>
-                    <option value="product">Andere</option>
-                </select>
-                <textarea name="message" rows="5" placeholder="Nachricht..."></textarea>
-                <button type="submit" class="btn">Senden</button>
-            </form>
-            <div class="contact-img fade-up">
-                <img src="https://denkenfeld.github.io/geprofoto1/img/kontakt2.jpg" alt="Kontakt" style="width: 100%; border-radius: 4px; filter: grayscale(50%);">
-                <div style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 10px;">PIX FOTOSTUDIO</h3>
-                    <p>Musterstraße 1<br>72336 Balingen</p>
-                    <p class="accent-text">+49 123 456 7890</p>
-                    <p>info@pix-fotostudio.de</p>
-                </div>
+        <div class="contact-split">
+            <div class="contact-img"></div>
+            <div class="contact-form-wrap">
+                <span class="label">Let's work together</span>
+                <h2>Start a Project</h2>
+                <p>Erzählen Sie uns von Ihrem Vorhaben. Wir melden uns innerhalb von 24h.</p>
+                
+                <form action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST">
+                    <input type="text" name="name" placeholder="Ihr Name" required>
+                    <input type="text" name="company" placeholder="Unternehmen (Optional)">
+                    <input type="email" name="email" placeholder="E-Mail Adresse" required>
+                    <select name="interest">
+                        <option value="" disabled selected>Ich interessiere mich für...</option>
+                        <option value="headshot">Einzel-Shooting</option>
+                        <option value="team">Team / Corporate</option>
+                        <option value="brand">Branding / Kampagne</option>
+                    </select>
+                    <textarea name="message" rows="4" placeholder="Nachricht..."></textarea>
+                    <button type="submit" class="btn">Anfrage Absenden</button>
+                </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-logo">
-            <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-p.jpg" alt="PIX Logo">
+        <div class="f-col">
+            <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-p.jpg" style="width: 80px; filter: invert(1); margin-bottom:20px;" alt="PIX">
+            <p>&copy; 2025 PIX FOTOSTUDIO.<br>All rights reserved.</p>
         </div>
-        <div class="footer-links">
-            <a href="#" class="trigger-modal" data-target="modal-impressum">Impressum</a>
-            <a href="#" class="trigger-modal" data-target="modal-datenschutz">Datenschutz</a>
+        <div class="f-col">
+            <h5>Studio</h5>
+            <a href="#">Über uns</a>
+            <a href="#">Anfahrt</a>
+            <a href="#">Jobs</a>
         </div>
-        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.5;">&copy; 2025 PIX Fotostudio.</p>
+        <div class="f-col">
+            <h5>Legal</h5>
+            <a href="#" onclick="document.getElementById('modal-imp').style.display='flex'">Impressum</a>
+            <a href="#" onclick="document.getElementById('modal-dat').style.display='flex'">Datenschutz</a>
+            <a href="#">AGB</a>
+        </div>
+        <div class="f-col">
+            <h5>Connect</h5>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Facebook</a>
+        </div>
     </footer>
 
-    <div id="modal-impressum" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Impressum</h3><br><p>PIX Fotostudio<br>Inhaber: Max Mustermann<br>Adresse...</p>
+    <div id="modal-imp" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#111; padding:40px; border:1px solid #333; position:relative; max-width:500px;">
+            <span onclick="this.parentElement.parentElement.style.display='none'" style="position:absolute; top:10px; right:10px; cursor:pointer; color:white;">✕</span>
+            <h3>Impressum</h3><p>Musterdaten...</p>
         </div>
     </div>
-    <div id="modal-datenschutz" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h3>Datenschutz</h3><br><p>Hier steht der DSGVO Text...</p>
+    <div id="modal-dat" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#111; padding:40px; border:1px solid #333; position:relative; max-width:500px;">
+            <span onclick="this.parentElement.parentElement.style.display='none'" style="position:absolute; top:10px; right:10px; cursor:pointer; color:white;">✕</span>
+            <h3>Datenschutz</h3><p>DSGVO Text...</p>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // --- SWIPER HERO SLIDER ---
-        const swiper = new Swiper('.hero-slider', {
-            loop: true,
-            speed: 1500,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            effect: 'fade',
-            fadeEffect: { crossFade: true },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
+        // 1. PRELOADER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.style.display = 'none'; }, 500);
         });
 
-        // --- THREE.JS PARTICLES (Subtle Network) ---
-        const canvas = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        canvas.appendChild(renderer.domElement);
+        // 2. SMOOTH SCROLL (LENIS) - THE LUXURY FEEL
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
 
-        const geometry = new THREE.BufferGeometry();
-        const count = 600;
-        const posArray = new Float32Array(count * 3);
-
-        for(let i=0; i<count*3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 15;
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
-        geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const material = new THREE.PointsMaterial({ size: 0.02, color: 0x3b82f6, transparent: true, opacity: 0.5 });
-        const mesh = new THREE.Points(geometry, material);
-        scene.add(mesh);
-        camera.position.z = 3;
+        requestAnimationFrame(raf);
 
-        // Animate Three.js
-        let mouseX = 0;
-        let mouseY = 0;
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX * 0.0001;
-            mouseY = e.clientY * 0.0001;
+        // 3. SWIPER HERO
+        const swiper = new Swiper('.hero-slider', {
+            effect: 'fade',
+            speed: 1000,
+            autoplay: { delay: 6000, disableOnInteraction: false },
+            loop: true
         });
 
-        const clock = new THREE.Clock();
-        const animate = () => {
-            const t = clock.getElapsedTime();
-            mesh.rotation.y = t * 0.05;
-            mesh.rotation.x += (mouseY - mesh.rotation.x) * 0.05;
-            mesh.rotation.y += (mouseX - mesh.rotation.y) * 0.05;
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        };
-        animate();
-
-        // --- GSAP SCROLL ANIMATIONS ---
+        // 4. GSAP ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
-        const fadeUps = document.querySelectorAll('.fade-up');
-        fadeUps.forEach(el => {
-            gsap.from(el, {
-                scrollTrigger: { trigger: el, start: "top 85%" },
-                y: 50, opacity: 0, duration: 0.8, ease: "power2.out"
+        
+        // Headlines Slide Up
+        gsap.utils.toArray('h2, .intro-txt p, .service-item').forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: { trigger: elem, start: "top 90%" },
+                y: 50, opacity: 0, duration: 1, ease: "power3.out"
             });
         });
 
-        // --- UI LOGIC ---
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('.nav-links');
-        burger.addEventListener('click', () => {
-            nav.classList.toggle('active');
+        // Image Parallax (Intro)
+        gsap.to('.intro-img-wrap img', {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+                trigger: '.intro-img-wrap',
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
         });
 
-        // Modals
-        document.querySelectorAll('.trigger-modal').forEach(t => {
-            t.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById(t.dataset.target).classList.add('active');
-            });
-        });
-        document.querySelectorAll('.close-modal').forEach(c => {
-            c.addEventListener('click', () => {
-                document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
-            });
-        });
+        // 5. THREE.JS STARFIELD (Subtle)
+        const canvas = document.getElementById('webgl-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        const geo = new THREE.BufferGeometry();
+        const count = 400;
+        const pos = new Float32Array(count * 3);
+        for(let i=0; i<count*3; i++) pos[i] = (Math.random()-0.5) * 15;
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const mat = new THREE.PointsMaterial({ size: 0.015, color: 0x3b82f6 });
+        const stars = new THREE.Points(geo, mat);
+        scene.add(stars);
+        camera.position.z = 2;
 
+        function animateStars() {
+            stars.rotation.y += 0.0005;
+            stars.rotation.x += 0.0002;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+        
         // Resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // 6. MOBILE MENU
+        const burger = document.querySelector('.burger');
+        const menu = document.querySelector('.mobile-menu');
+        burger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            burger.innerHTML = menu.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        document.querySelectorAll('.mobile-menu a').forEach(l => {
+            l.addEventListener('click', () => {
+                menu.classList.remove('active');
+                burger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
     </script>
 </body>
 </html>
