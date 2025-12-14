@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PIX FOTOSTUDIO | Enterprise Visual Solutions</title>
-    <meta name="description" content="High-End Business Fotografie, Corporate Headshots und Industrie-Dokumentation. Berlin & Bundesweit.">
+    <title>PIX FOTOSTUDIO | Professional Visuals</title>
+    <meta name="description" content="High-End Business Fotografie in Balingen. Headshots, Corporate Identity und Kampagnen.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- CORE VARIABLES & RESET --- */
         :root {
-            --bg-dark: #080808;
-            --bg-panel: #111111;
-            --text-main: #f0f0f0;
-            --text-muted: #888888;
-            --accent: #3b82f6; /* Modern Tech Blue */
-            --accent-glow: rgba(59, 130, 246, 0.4);
-            --border-light: rgba(255,255,255,0.08);
-            
-            --font-body: 'Manrope', sans-serif;
-            --font-display: 'Syncopate', sans-serif;
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --accent: #3b82f6; /* Tech Blue */
+            --accent-glow: 0 0 20px rgba(59, 130, 246, 0.5);
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         html { scroll-behavior: smooth; }
@@ -38,667 +37,415 @@
             font-family: var(--font-body);
             overflow-x: hidden;
             width: 100%;
-            cursor: none; /* Custom cursor is active */
         }
 
-        /* --- THREE.JS LAYER --- */
-        #canvas-bg {
+        /* --- THREE.JS BACKGROUND --- */
+        #canvas-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; opacity: 0.5; pointer-events: none;
-        }
-
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot, .cursor-circle {
-            position: fixed; top: 0; left: 0;
-            transform: translate(-50%, -50%);
-            pointer-events: none; z-index: 9999;
-            border-radius: 50%;
-        }
-        .cursor-dot { width: 6px; height: 6px; background: var(--accent); }
-        .cursor-circle { 
-            width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.3);
-            transition: width 0.3s, height 0.3s, background 0.3s;
-        }
-        /* Cursor Hover State */
-        body.hovered .cursor-circle {
-            width: 80px; height: 80px;
-            background: rgba(255,255,255,0.05);
-            border-color: var(--accent);
-            backdrop-filter: blur(2px);
+            z-index: -1; opacity: 0.4; pointer-events: none;
         }
 
         /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; }
-        h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1; font-weight: 700; margin-bottom: 20px; }
-        h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 40px; }
-        p { font-size: 1.1rem; line-height: 1.7; color: var(--text-muted); }
-        .text-accent { color: var(--accent); }
+        h1, h2, h3 { font-family: var(--font-head); text-transform: uppercase; line-height: 1.1; }
+        h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; }
+        h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 20px; }
+        p { color: var(--text-muted); line-height: 1.6; font-size: 1rem; margin-bottom: 20px; }
         
-        /* --- UTILS --- */
-        .container { width: 90%; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        .accent-text { color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 10px; }
+
+        /* --- BUTTONS --- */
         .btn {
-            display: inline-block; padding: 15px 40px;
-            background: transparent; border: 1px solid var(--border-light);
-            color: white; font-family: var(--font-display); font-size: 0.8rem;
-            text-transform: uppercase; letter-spacing: 2px;
-            transition: 0.3s; position: relative; overflow: hidden;
-            cursor: none; /* Keep custom cursor visible */
+            display: inline-block; padding: 16px 32px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            color: white; text-transform: uppercase; font-family: var(--font-head); font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+            text-decoration: none; transition: var(--transition); position: relative; overflow: hidden;
         }
         .btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--accent); transition: 0.4s; z-index: -1;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
         }
-        .btn:hover { border-color: var(--accent); }
-        .btn:hover::before { left: 0; }
-        .section-padding { padding: 120px 0; border-bottom: 1px solid var(--border-light); }
+        .btn:hover { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); box-shadow: var(--accent-glow); }
+        .btn:hover::before { left: 100%; }
 
         /* --- HEADER --- */
         header {
-            position: fixed; top: 0; left: 0; width: 100%;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; mix-blend-mode: difference;
+            background: rgba(5,5,5,0.7); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: 2px; }
+        .logo { font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: white; }
         
-        nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { color: white; text-decoration: none; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: 600; opacity: 0.7; transition: 0.3s; }
-        nav a:hover { opacity: 1; color: var(--accent); }
+        .burger { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- HERO --- */
-        .hero {
-            height: 100vh; display: flex; align-items: center; justify-content: flex-start;
-            position: relative; padding: 0 5%;
+        /* --- HERO SLIDER (SWIPER) --- */
+        .hero-slider {
+            width: 100%; height: 100vh; position: relative;
         }
-        .hero-content { max-width: 900px; }
-        .hero-sub {
-            display: block; font-family: var(--font-body); font-size: 1rem; color: var(--accent);
-            text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; font-weight: 600;
+        .swiper-slide {
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
-
-        /* --- SCROLL DOWN INDICATOR --- */
-        .scroll-down {
-            position: absolute; bottom: 40px; right: 5%;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
+        .slide-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            transform: scale(1.1); transition: transform 6s ease-out;
+            filter: brightness(0.5); /* Bild abdunkeln für Textlesbarkeit */
         }
-        .scroll-line { width: 1px; height: 60px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden; }
-        .scroll-line::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--accent); animation: scrollDrop 2s infinite;
-        }
-        @keyframes scrollDrop { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-
-        /* --- MARQUEE (LOGOS) --- */
-        .marquee-section { padding: 40px 0; background: var(--bg-panel); overflow: hidden; border-bottom: 1px solid var(--border-light); }
-        .marquee-track {
-            display: flex; gap: 80px; width: max-content;
-            animation: marquee 30s linear infinite;
-        }
-        .marquee-item { color: #444; font-size: 2.5rem; display: flex; align-items: center; gap: 10px; }
-        .marquee-item span { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* --- ABOUT (SPLIT) --- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-img { width: 100%; height: 600px; overflow: hidden; position: relative; }
-        .about-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
-        .about-img:hover img { filter: grayscale(0%); transform: scale(1.05); }
-
-        /* --- DETAILED SERVICES --- */
-        .service-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-            border: 1px solid var(--border-light); margin-bottom: 40px;
-        }
-        .service-row:nth-child(even) .service-txt { order: 2; } /* ZigZag Layout */
+        .swiper-slide-active .slide-bg { transform: scale(1); }
         
-        .service-visual { height: 500px; overflow: hidden; position: relative; }
-        .service-visual img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-        .service-row:hover .service-visual img { transform: scale(1.1); }
-        
-        .service-txt { padding: 60px; display: flex; flex-direction: column; justify-content: center; background: rgba(255,255,255,0.02); }
-        .service-txt h3 { font-size: 2rem; margin-bottom: 20px; color: white; }
-        .service-txt ul { margin-top: 30px; list-style: none; }
-        .service-txt li { margin-bottom: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 10px; }
-        .service-txt li i { color: var(--accent); font-size: 0.8rem; }
+        .slide-content {
+            position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 0 20px;
+            opacity: 0; transform: translateY(30px); transition: 1s ease 0.5s;
+        }
+        .swiper-slide-active .slide-content { opacity: 1; transform: translateY(0); }
 
-        /* --- PROCESS (Timeline) --- */
-        .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 60px; }
-        .step { position: relative; padding-top: 40px; border-top: 1px solid var(--border-light); transition: 0.3s; }
-        .step::before {
-            content: ''; position: absolute; top: -1px; left: 0; width: 0%; height: 1px;
-            background: var(--accent); transition: 0.5s;
-        }
-        .step:hover::before { width: 100%; }
-        .step-num { font-family: var(--font-display); font-size: 3rem; color: rgba(255,255,255,0.1); position: absolute; top: 20px; right: 0; }
-        .step h4 { margin-bottom: 15px; font-size: 1.2rem; }
+        .slide-content h1 { text-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; }
+        .slide-content p { font-size: 1.2rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5); color: #ddd; }
 
-        /* --- PORTFOLIO (MASONRY) --- */
-        .gallery-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
+        /* --- SECTIONS --- */
+        section { padding: 100px 5%; position: relative; }
+        .grid-container { display: grid; gap: 40px; }
+
+        /* --- ABOUT --- */
+        .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-img { position: relative; border-radius: 4px; overflow: hidden; }
+        .about-img img { width: 100%; display: block; filter: grayscale(100%); transition: var(--transition); }
+        .about-img:hover img { filter: grayscale(0%); transform: scale(1.03); }
+
+        /* --- PORTFOLIO (Masonryish Grid) --- */
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;
         }
-        .gallery-item {
-            height: 400px; position: relative; overflow: hidden;
-            border: 1px solid var(--border-light);
+        .p-item {
+            position: relative; height: 400px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
         }
-        .gallery-item img {
+        .p-item img {
             width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.2, 1, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
         }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-overlay {
+        .p-item:hover img { transform: scale(1.1); }
+        .p-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px;
-            background: linear-gradient(to top, black, transparent);
-            opacity: 0; transform: translateY(20px); transition: 0.4s;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(100%); transition: var(--transition);
         }
-        .gallery-item:hover .gallery-overlay { opacity: 1; transform: translateY(0); }
-
-        /* --- FAQ --- */
-        .faq-item { border-bottom: 1px solid var(--border-light); }
-        .faq-item summary {
-            padding: 30px 0; cursor: none; list-style: none; font-size: 1.2rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .faq-item summary::-webkit-details-marker { display: none; }
-        .faq-item summary span:last-child { font-size: 1.5rem; color: var(--accent); }
-        .faq-content { padding-bottom: 30px; color: var(--text-muted); max-width: 800px; line-height: 1.8; }
-        details[open] summary span:last-child { transform: rotate(45deg); }
+        .p-item:hover .p-overlay { transform: translateY(0); }
 
         /* --- CONTACT --- */
-        .contact-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; }
-        .contact-data p { font-size: 1.2rem; margin-bottom: 10px; color: white; }
-        .contact-data span { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 40px; }
+        .contact-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; background: var(--bg-card); padding: 60px; border: 1px solid rgba(255,255,255,0.05); }
         
-        form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .full-width { grid-column: span 2; }
-        input, select, textarea {
-            width: 100%; background: transparent; border: 1px solid var(--border-light);
-            padding: 20px; color: white; font-family: var(--font-body);
-            transition: 0.3s;
+        form { display: grid; gap: 20px; }
+        input, textarea {
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; color: white; font-family: var(--font-body); outline: none; transition: 0.3s;
         }
-        input:focus, textarea:focus, select:focus { border-color: var(--accent); outline: none; background: rgba(255,255,255,0.02); }
+        input:focus, textarea:focus { border-color: var(--accent); background: rgba(255,255,255,0.05); }
 
         /* --- FOOTER --- */
-        footer { padding: 80px 5%; border-top: 1px solid var(--border-light); background: #050505; }
-        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
-        .footer-col h5 { color: white; margin-bottom: 20px; font-family: var(--font-display); }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 10px; }
-        .footer-col a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
-        .footer-col a:hover { color: white; }
+        footer { background: #000; padding: 60px 5%; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-logo img { width: 100px; filter: invert(1); opacity: 0.7; margin-bottom: 20px; } /* Logo weiß machen */
+        .footer-links a { color: var(--text-muted); margin: 0 15px; font-size: 0.9rem; text-decoration: none; }
+        .footer-links a:hover { color: white; }
 
         /* --- MOBILE --- */
-        .burger { display: none; color: white; font-size: 1.5rem; cursor: pointer; z-index: 1001; }
-        
-        @media (max-width: 1024px) {
-            .about-grid, .service-row, .contact-wrap { grid-template-columns: 1fr; }
-            .service-row:nth-child(even) .service-txt { order: unset; }
-            .process-steps { grid-template-columns: 1fr 1fr; }
-            .cursor-dot, .cursor-circle { display: none; } /* Disable custom cursor on touch */
-            body { cursor: auto; }
-            .btn { cursor: pointer; }
+        @media (max-width: 900px) {
+            .about-wrap, .contact-wrap { grid-template-columns: 1fr; }
+            .nav-links {
+                position: fixed; top: 0; right: 0; height: 100vh; width: 80%; background: #0f0f0f;
+                flex-direction: column; justify-content: center; align-items: center;
+                transform: translateX(100%); transition: 0.3s;
+            }
+            .nav-links.active { transform: translateX(0); }
+            .burger { display: block; z-index: 2000; }
+            h1 { font-size: 2.5rem; }
         }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 12vw; }
-            nav ul {
-                position: fixed; top: 0; right: 0; height: 100vh; width: 80%;
-                background: #111; flex-direction: column; justify-content: center; padding: 40px;
-                transform: translateX(100%); transition: 0.4s;
-            }
-            nav ul.active { transform: translateX(0); }
-            .burger { display: block; }
-            form { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-        }
+        /* --- MODALS --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--bg-card); padding: 40px; width: 90%; max-width: 600px; border: 1px solid var(--accent); position: relative; max-height: 80vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 10px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--accent); }
     </style>
 </head>
-<body class="hover-target">
+<body>
 
-    <canvas id="canvas-bg"></canvas>
-
-    <div class="cursor-dot"></div>
-    <div class="cursor-circle"></div>
+    <div id="canvas-container"></div>
 
     <header>
-        <div class="logo">PIX<span style="color:var(--accent)">.</span></div>
+        <div class="logo">PIX<span>FOTOSTUDIO</span></div>
         <div class="burger"><i class="fas fa-bars"></i></div>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="#about" class="hover-trigger">Studio</a></li>
-                <li><a href="#services" class="hover-trigger">Expertise</a></li>
-                <li><a href="#process" class="hover-trigger">Prozess</a></li>
-                <li><a href="#portfolio" class="hover-trigger">Work</a></li>
-                <li><a href="#contact" class="hover-trigger">Kontakt</a></li>
-            </ul>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">Studio</a>
+            <a href="#portfolio">Work</a>
+            <a href="#contact">Kontakt</a>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-sub fade-up">Corporate Photography</span>
-            <h1 class="fade-up">Bildsprache<br>für Visionäre.</h1>
-            <p class="fade-up" style="max-width: 600px; margin-bottom: 40px;">
-                Wir transformieren Unternehmenswerte in visuelle Assets. 
-                Präzise, modern und technisch perfektioniert für den Markt von morgen.
-            </p>
-            <a href="#contact" class="btn hover-trigger fade-up">Projekt starten</a>
+    <div class="swiper hero-slider" id="home">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/pix-start-1.jpg');"></div>
+                <div class="slide-content">
+                    <span class="accent-text">Visionary Photography</span>
+                    <h1>Bildsprache,<br>die wirkt.</h1>
+                    <p>Außergewöhnliche Inszenierung für Marken, die gesehen werden wollen.</p>
+                    <a href="#portfolio" class="btn">Portfolio ansehen</a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/unnamed-1.jpg');"></div>
+                <div class="slide-content">
+                    <span class="accent-text">Corporate Identity</span>
+                    <h1>Ihr Team.<br>Ihre Stärke.</h1>
+                    <p>Authentische Business-Fotografie, die Vertrauen schafft.</p>
+                    <a href="#contact" class="btn">Anfrage stellen</a>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slide-bg" style="background-image: url('https://denkenfeld.github.io/geprofoto1/img/s5.jpg');"></div>
+                <div class="slide-content">
+                    <span class="accent-text">Executive Portraits</span>
+                    <h1>Führung<br>Ausstrahlen.</h1>
+                    <p>Moderne Headshots für Vorstände und Macher.</p>
+                </div>
+            </div>
         </div>
-        <div class="scroll-down">
-            <div class="scroll-line"></div>
-            <span style="font-size: 0.7rem; color: var(--text-muted); text-transform:uppercase;">Scroll</span>
-        </div>
-    </section>
-
-    <div class="marquee-section">
-        <div class="marquee-track">
-            <div class="marquee-item"><i class="fab fa-aws"></i> <span>AMAZON</span></div>
-            <div class="marquee-item"><i class="fab fa-google"></i> <span>GOOGLE</span></div>
-            <div class="marquee-item"><i class="fab fa-microsoft"></i> <span>MICROSOFT</span></div>
-            <div class="marquee-item"><i class="fas fa-building"></i> <span>SIEMENS</span></div>
-            <div class="marquee-item"><i class="fab fa-airbnb"></i> <span>AIRBNB</span></div>
-            <div class="marquee-item"><i class="fab fa-spotify"></i> <span>SPOTIFY</span></div>
-            
-            <div class="marquee-item"><i class="fab fa-aws"></i> <span>AMAZON</span></div>
-            <div class="marquee-item"><i class="fab fa-google"></i> <span>GOOGLE</span></div>
-            <div class="marquee-item"><i class="fab fa-microsoft"></i> <span>MICROSOFT</span></div>
-            <div class="marquee-item"><i class="fas fa-building"></i> <span>SIEMENS</span></div>
-            <div class="marquee-item"><i class="fab fa-airbnb"></i> <span>AIRBNB</span></div>
-            <div class="marquee-item"><i class="fab fa-spotify"></i> <span>SPOTIFY</span></div>
-        </div>
+        <div class="swiper-pagination"></div>
     </div>
 
-    <section id="about" class="section-padding">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-txt fade-up">
-                    <h4 class="text-accent" style="margin-bottom: 10px;">Das Studio</h4>
-                    <h2>Ästhetik trifft<br>Strategie.</h2>
-                    <p>
-                        In einer Welt voller visueller Reize reicht "schön" nicht mehr aus. Bilder müssen kommunizieren. 
-                        PIX FOTOSTUDIO ist spezialisiert auf die visuelle Identität moderner Unternehmen.
-                        <br><br>
-                        Wir verstehen nicht nur Blende und Verschlusszeit, sondern auch Markenpositionierung, 
-                        Employer Branding und Investor Relations. Unsere Bilder sind Werkzeuge für Ihren Erfolg.
-                    </p>
-                    <br>
-                    <div style="display:flex; gap: 40px; margin-top: 20px;">
-                        <div>
-                            <h3 style="font-size: 2.5rem;">15+</h3>
-                            <span style="color:var(--text-muted); font-size:0.8rem;">JAHRE MARKTFÜHRER</span>
-                        </div>
-                        <div>
-                            <h3 style="font-size: 2.5rem;">500+</h3>
-                            <span style="color:var(--text-muted); font-size:0.8rem;">CORPORATE CLIENTS</span>
-                        </div>
-                    </div>
+    <section id="about">
+        <div class="about-wrap">
+            <div class="about-txt fade-up">
+                <span class="accent-text">Das Studio</span>
+                <h2>Mehr als nur<br>ein Foto.</h2>
+                <p>
+                    Bei PIX FOTOSTUDIO verbinden wir technisches Know-how mit psychologischem Feingefühl. 
+                    Ein gutes Business-Foto entsteht nicht durch die Kamera, sondern durch die Interaktion vor der Linse.
+                </p>
+                <p>
+                    Ob im Studio in Balingen oder On-Location bei Ihnen im Unternehmen: Wir sorgen für eine entspannte Atmosphäre und Ergebnisse, 
+                    die Ihre Professionalität unterstreichen.
+                </p>
+                <br>
+                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-pbig.jpg" alt="Logo" style="width: 150px; mix-blend-mode: screen;">
+            </div>
+            <div class="about-img fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/irene-infobild.jpg" alt="Fotografin bei der Arbeit">
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div style="text-align: center; margin-bottom: 60px;">
+            <span class="accent-text">Selected Work</span>
+            <h2>Expertise</h2>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="p-item fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/s4.jpg" alt="Business Portrait Frau">
+                <div class="p-overlay">
+                    <h3>Corporate Portrait</h3>
+                    <p class="accent-text">Studio</p>
                 </div>
-                <div class="about-img hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80" alt="Fotostudio Team">
+            </div>
+             <div class="p-item fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/unnamed.jpg" alt="Business Portrait Mann">
+                <div class="p-overlay">
+                    <h3>Executive Headshot</h3>
+                    <p class="accent-text">Studio</p>
+                </div>
+            </div>
+            <div class="p-item fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/1436a776-00c5-43db-bc39-22aa76b0bfe6_l.jpg" alt="Bewerbungsfoto Modern">
+                <div class="p-overlay">
+                    <h3>Modern Application</h3>
+                    <p class="accent-text">Grey Backdrop</p>
+                </div>
+            </div>
+            <div class="p-item fade-up" style="grid-column: span 1; md:grid-column: span 2;">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/Collage10x4pf.jpg" alt="Team Collage">
+                <div class="p-overlay">
+                    <h3>Team Aufstellung</h3>
+                    <p class="accent-text">Composing</p>
+                </div>
+            </div>
+             <div class="p-item fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/studio1.jpg" alt="Behind the Scenes">
+                <div class="p-overlay">
+                    <h3>Behind the Scenes</h3>
+                    <p class="accent-text">Workflow</p>
+                </div>
+            </div>
+             <div class="p-item fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/pix-start-mitarbeiter.jpg" alt="Teamwork">
+                <div class="p-overlay">
+                    <h3>Teamwork</h3>
+                    <p class="accent-text">On Location</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="services" class="section-padding">
-        <div class="container">
-            <h2 class="fade-up" style="text-align: center;">Core Expertise</h2>
-            
-            <div class="service-row fade-up">
-                <div class="service-visual">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="CEO Portrait">
+    <section id="contact">
+        <div class="contact-wrap">
+            <form action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST" class="fade-up">
+                <div>
+                    <span class="accent-text">Let's talk business</span>
+                    <h2>Projekt Starten</h2>
                 </div>
-                <div class="service-txt">
-                    <h3>Executive Portraits</h3>
-                    <p>Authentizität schafft Vertrauen. Wir inszenieren Vorstände und Führungskräfte nahbar und kompetent.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> On-Location oder im Studio</li>
-                        <li><i class="fas fa-check"></i> Coaching für Körpersprache</li>
-                        <li><i class="fas fa-check"></i> High-End Retusche</li>
-                    </ul>
+                <input type="text" name="name" placeholder="Name / Unternehmen" required>
+                <input type="email" name="email" placeholder="E-Mail Adresse" required>
+                <select name="type">
+                    <option value="" disabled selected>Art der Anfrage</option>
+                    <option value="headshot">Einzelportraits / Bewerbung</option>
+                    <option value="corporate">Firmenreportage / Team</option>
+                    <option value="product">Andere</option>
+                </select>
+                <textarea name="message" rows="5" placeholder="Nachricht..."></textarea>
+                <button type="submit" class="btn">Senden</button>
+            </form>
+            <div class="contact-img fade-up">
+                <img src="https://denkenfeld.github.io/geprofoto1/img/kontakt2.jpg" alt="Kontakt" style="width: 100%; border-radius: 4px; filter: grayscale(50%);">
+                <div style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 10px;">PIX FOTOSTUDIO</h3>
+                    <p>Musterstraße 1<br>72336 Balingen</p>
+                    <p class="accent-text">+49 123 456 7890</p>
+                    <p>info@pix-fotostudio.de</p>
                 </div>
-            </div>
-
-            <div class="service-row fade-up">
-                <div class="service-visual">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Architektur">
-                </div>
-                <div class="service-txt">
-                    <h3>Corporate Architecture</h3>
-                    <p>Räume sind Teil der Markenidentität. Wir erfassen die Atmosphäre Ihrer Standorte, Werke und Büros.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Innen- & Außenarchitektur</li>
-                        <li><i class="fas fa-check"></i> Drohnenaufnahmen</li>
-                        <li><i class="fas fa-check"></i> 360° Rundgänge</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="service-row fade-up">
-                <div class="service-visual">
-                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Event Konferenz">
-                </div>
-                <div class="service-txt">
-                    <h3>Event & Konferenz</h3>
-                    <p>Dynamische Dokumentation Ihrer Keynotes, Messen und Firmenjubiläen. Diskret und wirkungsvoll.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Same-Day Delivery für Social Media</li>
-                        <li><i class="fas fa-check"></i> Pressefotos in Echtzeit</li>
-                        <li><i class="fas fa-check"></i> Mood-Videos inklusive</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="process" class="section-padding" style="background: var(--bg-panel);">
-        <div class="container">
-            <h4 class="text-accent">Workflow</h4>
-            <h2>Der Weg zum Bild</h2>
-            
-            <div class="process-steps">
-                <div class="step fade-up">
-                    <span class="step-num">01</span>
-                    <h4>Consulting</h4>
-                    <p>Wir analysieren Ihre Zielgruppe und Markenwerte, um ein passgenaues Bildkonzept zu entwickeln.</p>
-                </div>
-                <div class="step fade-up" style="transition-delay: 0.1s;">
-                    <span class="step-num">02</span>
-                    <h4>Production</h4>
-                    <p>Effizientes Shooting mit modernstem Equipment (Hasselblad/Sony). Regieanweisung inklusive.</p>
-                </div>
-                <div class="step fade-up" style="transition-delay: 0.2s;">
-                    <span class="step-num">03</span>
-                    <h4>Post-Processing</h4>
-                    <p>Color-Grading und Retusche im Look Ihrer Corporate Identity. Pixelgenaue Perfektion.</p>
-                </div>
-                <div class="step fade-up" style="transition-delay: 0.3s;">
-                    <span class="step-num">04</span>
-                    <h4>Delivery</h4>
-                    <p>Bereitstellung in allen Formaten (Print, Web, Social) über gesicherte Cloud-Server.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="portfolio" class="section-padding">
-        <div class="container">
-            <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom: 50px;">
-                <h2>Selected Work</h2>
-                <a href="#" class="text-accent hover-trigger">Vollständiges Portfolio ansehen &rarr;</a>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Business Meeting">
-                    <div class="gallery-overlay"><h4>Tech Start-Up</h4><p>Berlin</p></div>
-                </div>
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Industry">
-                    <div class="gallery-overlay"><h4>Automotive Industry</h4><p>Stuttgart</p></div>
-                </div>
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="CEO">
-                    <div class="gallery-overlay"><h4>CEO Editorial</h4><p>Frankfurt</p></div>
-                </div>
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Skyscraper">
-                    <div class="gallery-overlay"><h4>Real Estate</h4><p>München</p></div>
-                </div>
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Team">
-                    <div class="gallery-overlay"><h4>Agile Teams</h4><p>Hamburg</p></div>
-                </div>
-                <div class="gallery-item hover-trigger fade-up">
-                    <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Conference">
-                    <div class="gallery-overlay"><h4>Finance Summit</h4><p>Zürich</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-padding" style="background: var(--bg-panel);">
-        <div class="container">
-            <h2 class="fade-up">Häufige Fragen</h2>
-            <div class="faq-list">
-                <details class="faq-item fade-up hover-trigger">
-                    <summary>Wie kurzfristig können wir buchen? <span>+</span></summary>
-                    <div class="faq-content">
-                        Für kleinere Projekte (Headshots) benötigen wir etwa 1 Woche Vorlauf. 
-                        Für große Kampagnen oder Events empfehlen wir eine Planung von 4-6 Wochen im Voraus.
-                    </div>
-                </details>
-                <details class="faq-item fade-up hover-trigger">
-                    <summary>Erhalten wir alle Nutzungsrechte? <span>+</span></summary>
-                    <div class="faq-content">
-                        Ja. Unsere Corporate-Pakete beinhalten standardmäßig das zeitlich und räumlich uneingeschränkte Nutzungsrecht (Buy-out) für Ihr Unternehmen.
-                    </div>
-                </details>
-                <details class="faq-item fade-up hover-trigger">
-                    <summary>Arbeiten Sie auch international? <span>+</span></summary>
-                    <div class="faq-content">
-                        Absolut. Unser Team ist reisebereit und verfügt über Carnets für Equipment-Transporte weltweit. Wir haben bereits Projekte in USA, Asien und ganz Europa realisiert.
-                    </div>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section-padding">
-        <div class="container">
-            <div class="contact-wrap">
-                <div class="contact-info fade-up">
-                    <h2>Start Project</h2>
-                    <p>Bereit für den visuellen Wandel?</p>
-                    <br>
-                    <div class="contact-data">
-                        <p>Studio Berlin</p>
-                        <span>Torstraße 101, 10119 Berlin</span>
-                        
-                        <p>Kontakt</p>
-                        <span>
-                            +49 (0) 30 998877<br>
-                            hello@pix-fotostudio.de
-                        </span>
-                    </div>
-                </div>
-                
-                <form action="https://formspree.io/f/DEINE_ID_HIER" method="POST" class="fade-up">
-                    <input type="text" name="name" placeholder="Name / Ansprechpartner" required class="hover-trigger">
-                    <input type="text" name="company" placeholder="Unternehmen" required class="hover-trigger">
-                    <input type="email" name="email" placeholder="E-Mail Adresse" required class="full-width hover-trigger">
-                    <select name="type" class="full-width hover-trigger">
-                        <option value="" disabled selected>Projekttyp wählen</option>
-                        <option value="headshots">Mitarbeiterfotos</option>
-                        <option value="campaign">Werbekampagne</option>
-                        <option value="event">Event Dokumentation</option>
-                        <option value="architecture">Immobilien / Architektur</option>
-                    </select>
-                    <textarea name="message" rows="5" placeholder="Beschreiben Sie Ihr Vorhaben..." class="full-width hover-trigger"></textarea>
-                    <button type="submit" class="btn full-width hover-trigger">Anfrage senden</button>
-                </form>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col" style="flex: 2;">
-                    <div class="logo">PIX<span style="color:var(--accent)">.</span></div>
-                    <p style="margin-top:20px; font-size: 0.9rem;">
-                        High-End Visual Solutions for Enterprise Clients.<br>
-                        Based in Berlin, operating worldwide.
-                    </p>
-                </div>
-                <div class="footer-col">
-                    <h5>Sitemap</h5>
-                    <ul>
-                        <li><a href="#about" class="hover-trigger">Studio</a></li>
-                        <li><a href="#services" class="hover-trigger">Leistungen</a></li>
-                        <li><a href="#portfolio" class="hover-trigger">Portfolio</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Legal</h5>
-                    <ul>
-                        <li><a href="#" class="hover-trigger">Impressum</a></li>
-                        <li><a href="#" class="hover-trigger">Datenschutz</a></li>
-                        <li><a href="#" class="hover-trigger">AGB</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h5>Social</h5>
-                    <div style="font-size: 1.5rem;">
-                        <a href="#" class="hover-trigger" style="margin-right: 15px;"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hover-trigger" style="margin-right: 15px;"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="hover-trigger"><i class="fab fa-vimeo"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: #444; font-size: 0.8rem;">
-                &copy; 2025 PIX FOTOSTUDIO. All Rights Reserved.
-            </div>
+        <div class="footer-logo">
+            <img src="https://denkenfeld.github.io/geprofoto1/img/pix-logo-p.jpg" alt="PIX Logo">
         </div>
+        <div class="footer-links">
+            <a href="#" class="trigger-modal" data-target="modal-impressum">Impressum</a>
+            <a href="#" class="trigger-modal" data-target="modal-datenschutz">Datenschutz</a>
+        </div>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.5;">&copy; 2025 PIX Fotostudio.</p>
     </footer>
 
+    <div id="modal-impressum" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Impressum</h3><br><p>PIX Fotostudio<br>Inhaber: Max Mustermann<br>Adresse...</p>
+        </div>
+    </div>
+    <div id="modal-datenschutz" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Datenschutz</h3><br><p>Hier steht der DSGVO Text...</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // --- MOUSE CURSOR LOGIC ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorCircle = document.querySelector('.cursor-circle');
-        const hoverTriggers = document.querySelectorAll('.hover-trigger');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            // Dot follows instantly
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-
-            // Circle follows with lag (handled by CSS transition for smoothness or JS)
-            cursorCircle.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+        // --- SWIPER HERO SLIDER ---
+        const swiper = new Swiper('.hero-slider', {
+            loop: true,
+            speed: 1500,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
         });
 
-        // Hover Effects
-        hoverTriggers.forEach(link => {
-            link.addEventListener('mouseenter', () => document.body.classList.add('hovered'));
-            link.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
-        });
-
-        // --- THREE.JS BACKGROUND (Abstract Network) ---
-        const initThree = () => {
-            const canvas = document.getElementById('canvas-bg');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-            
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            // Particles
-            const particlesGeo = new THREE.BufferGeometry();
-            const particlesCount = 800;
-            const posArray = new Float32Array(particlesCount * 3);
-
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 20; // Spread wide
-            }
-            particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-            const material = new THREE.PointsMaterial({
-                size: 0.03,
-                color: 0x3b82f6,
-                transparent: true,
-                opacity: 0.6
-            });
-
-            const particlesMesh = new THREE.Points(particlesGeo, material);
-            scene.add(particlesMesh);
-            camera.position.z = 5;
-
-            // Mouse Interaction
-            let mouseX = 0;
-            let mouseY = 0;
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX / window.innerWidth - 0.5;
-                mouseY = e.clientY / window.innerHeight - 0.5;
-            });
-
-            // Animate
-            const clock = new THREE.Clock();
-            const animate = () => {
-                const elapsedTime = clock.getElapsedTime();
-                
-                // Slow rotation
-                particlesMesh.rotation.y = elapsedTime * 0.02;
-                particlesMesh.rotation.x = -mouseY * 0.2;
-                particlesMesh.rotation.y += mouseX * 0.2;
-
-                renderer.render(scene, camera);
-                requestAnimationFrame(animate);
-            }
-            animate();
-
-            // Resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        };
-        initThree();
-
-        // --- GSAP ANIMATIONS ---
-        gsap.registerPlugin(ScrollTrigger);
-
-        // General Fade Up
-        const fadeUps = document.querySelectorAll('.fade-up');
-        fadeUps.forEach(elem => {
-            gsap.fromTo(elem, 
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: 'top 85%',
-                    }
-                }
-            );
-        });
-
-        // Parallax for Service Images
-        gsap.utils.toArray('.service-visual img').forEach((img) => {
-            gsap.to(img, {
-                yPercent: 15, // Moves image slightly down while scrolling
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: img.parentElement,
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: true
-                }
-            });
-        });
-
-        // --- MOBILE MENU ---
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('nav ul');
+        // --- THREE.JS PARTICLES (Subtle Network) ---
+        const canvas = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
         
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        canvas.appendChild(renderer.domElement);
+
+        const geometry = new THREE.BufferGeometry();
+        const count = 600;
+        const posArray = new Float32Array(count * 3);
+
+        for(let i=0; i<count*3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
+        }
+        geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const material = new THREE.PointsMaterial({ size: 0.02, color: 0x3b82f6, transparent: true, opacity: 0.5 });
+        const mesh = new THREE.Points(geometry, material);
+        scene.add(mesh);
+        camera.position.z = 3;
+
+        // Animate Three.js
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX * 0.0001;
+            mouseY = e.clientY * 0.0001;
+        });
+
+        const clock = new THREE.Clock();
+        const animate = () => {
+            const t = clock.getElapsedTime();
+            mesh.rotation.y = t * 0.05;
+            mesh.rotation.x += (mouseY - mesh.rotation.x) * 0.05;
+            mesh.rotation.y += (mouseX - mesh.rotation.y) * 0.05;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        };
+        animate();
+
+        // --- GSAP SCROLL ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+        const fadeUps = document.querySelectorAll('.fade-up');
+        fadeUps.forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: { trigger: el, start: "top 85%" },
+                y: 50, opacity: 0, duration: 0.8, ease: "power2.out"
+            });
+        });
+
+        // --- UI LOGIC ---
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
         burger.addEventListener('click', () => {
             nav.classList.toggle('active');
-            // Change Icon logic if needed
-        });
-        
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => nav.classList.remove('active'));
         });
 
+        // Modals
+        document.querySelectorAll('.trigger-modal').forEach(t => {
+            t.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById(t.dataset.target).classList.add('active');
+            });
+        });
+        document.querySelectorAll('.close-modal').forEach(c => {
+            c.addEventListener('click', () => {
+                document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+            });
+        });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
     </script>
 </body>
 </html>
