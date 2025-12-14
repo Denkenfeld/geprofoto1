@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heartbeat Moments - Eure Geschichte in Bildern</title>
+    <meta name="description" content="Professionelle Fotografie für echte Momente. Hochzeiten, Paare und Familien.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLEN & GLOBAL --- */
+        :root {
+            --primary-color: #B08968; /* Ein warmer Erdton/Gold */
+            --secondary-color: #EDE0D4; /* Helles Beige */
+            --text-dark: #2C2C2C;
+            --text-light: #666666;
+            --bg-white: #FCFCFC;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --font-accent: 'Dancing Script', cursive;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .accent-text {
+            font-family: var(--font-accent);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--text-dark);
+            color: var(--text-dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-dark);
+            color: white;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            transition: 0.4s;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .burger { display: none; cursor: pointer; }
+        .burger div { width: 25px; height: 3px; background-color: var(--text-dark); margin: 5px; transition: var(--transition); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            /* HINWEIS: Ersetze die URL oben durch ein Top-Bild von Heartbeat Moments */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-title span {
+            display: block;
+            margin-top: 10px;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 10px auto;
+        }
+
+        /* --- INTRO / VIBE --- */
+        .intro {
+            text-align: center;
+            background-color: var(--secondary-color);
+        }
+
+        .intro-text {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- ABOUT --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            position: relative;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 10px 10px 0px var(--secondary-color);
+        }
+
+        /* --- PORTFOLIO --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- PRICING --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .price-card {
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            border: 1px solid #eee;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .price-header h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price { font-size: 2.5rem; font-family: var(--font-heading); color: var(--primary-color); margin-bottom: 20px; display: block; }
+        .price span { font-size: 1rem; color: var(--text-light); }
+        
+        .price-features { margin-bottom: 30px; text-align: left; padding-left: 10px;}
+        .price-features li { margin-bottom: 10px; color: var(--text-light); font-size: 0.95rem; }
+        .price-features i { color: var(--primary-color); margin-right: 10px; }
+
+        .addons {
+            margin-top: 50px;
+            text-align: center;
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+        /* --- CONTACT --- */
+        .contact { background-color: #f4f4f4; }
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info p { margin-bottom: 20px; }
+        .contact-info i { color: var(--primary-color); width: 30px; }
+
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea, select {
+            padding: 15px;
+            border: 1px solid #ddd;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: white;
+        }
+        textarea { resize: vertical; min-height: 150px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 50px 10% 20px;
+            text-align: center;
+        }
+
+        .footer-links a { margin: 0 15px; font-size: 0.9rem; }
+        .footer-links a:hover { color: white; }
+        .copyright { margin-top: 30px; font-size: 0.8rem; color: #777; }
+
+        /* --- MODALS (POP UPS) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active { display: flex; opacity: 1; }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-modal:hover { color: black; }
+
+        /* --- COOKIE BANNER --- */
+        #cookie-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5000;
+            border-radius: 5px;
+            border-left: 5px solid var(--primary-color);
+        }
+        .cookie-btn-group { display: flex; gap: 10px; }
+        
+        /* --- ANIMATIONS --- */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .fade-in.appear { opacity: 1; transform: translateY(0); }
+
+        /* --- MOBILE --- */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 100vh;
+                top: 0;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 70%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            .nav-links.nav-active { transform: translateX(0%); }
+            .burger { display: block; z-index: 2000; }
+            .about-container, .contact-container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .price-card.featured { transform: none; }
+            #cookie-banner { flex-direction: column; text-align: center; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="logo">Heartbeat<span style="color:var(--primary-color)">.</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Start</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#portfolio">Galerie</a></li>
+                <li><a href="#preise">Investition</a></li>
+                <li><a href="#contact" class="btn">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <p class="accent-text fade-in">So schön, dass ihr hier seid!</p>
+        <h1 class="fade-in">Eure Geschichte. Echte Gefühle.</h1>
+        <p class="fade-in">Authentische Fotografie, die euer Herz berührt.</p>
+        <a href="#portfolio" class="btn fade-in" style="margin-top: 20px;">Portfolio ansehen</a>
+    </section>
+
+    <section class="intro fade-in">
+        <div class="intro-text">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">Kein Kitsch. Nur Ihr.</h2>
+            <p>
+                Ich glaube an die Magie des Augenblicks. An das leise Flüstern kurz vor dem Kuss und das laute Lachen beim Tanzen im Regen. 
+                Bei <strong>Heartbeat Moments</strong> geht es nicht um perfekte Posen, sondern um eure Verbindung. 
+                Ich bin hier, um eure Erinnerungen so festzuhalten, wie sie sich angefühlt haben: Ehrlich, roh und wunderschön.
+            </p>
+        </div>
+    </section>
+
+    <section id="about" class="fade-in">
+        <div class="section-title">
+            <h2>Hi, ich bin [Dein Name]</h2>
+            <span></span>
+        </div>
+        <div class="about-container">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1554048612-387768052bf7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Fotografin Portrait">
+            </div>
+            <div class="about-text">
+                <p class="accent-text">Fotografin mit Herz & Seele</p>
+                <br>
+                <h3>Eure Begleiterin für die großen und kleinen Momente.</h3>
+                <br>
+                <p>
+                    Schön, dass ihr zu mir gefunden habt! Ich liebe es, Menschen zu beobachten und ihre Emotionen sichtbar zu machen. 
+                    Wenn ich nicht gerade hinter der Kamera stehe, findet ihr mich wahrscheinlich mit einem guten Kaffee in der Hand oder draußen in der Natur.
+                </p>
+                <br>
+                <p>
+                    Mein Ziel? Dass ihr euch vor meiner Kamera wohlfühlt – als würdet ihr Zeit mit einer guten Freundin verbringen. 
+                    Lasst uns zusammen etwas Unvergessliches erschaffen.
+                </p>
+                <br>
+                <a href="#contact" class="btn-outline" style="padding: 10px 25px;">Schreib mir</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" style="background-color: #fafafa;">
+        <div class="section-title">
+            <p class="accent-text">Galerie</p>
+            <h2>Echte Momente</h2>
+            <span></span>
+        </div>
+        
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1511285560982-1351cdeb9821?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hochzeitspaar">
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Verlobung">
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1522673607200-1645062cd958?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Braut">
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1606103920295-97f88c0ce9b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Couple Session">
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1529636721158-b8a220b7bac4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Details">
+            </div>
+            <div class="portfolio-item fade-in">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hochzeitsfeier">
+            </div>
+        </div>
+    </section>
+
+    <section id="preise">
+        <div class="section-title">
+            <p class="accent-text">Investition</p>
+            <h2>Eure Pakete</h2>
+            <p style="max-width: 600px; margin: 0 auto; margin-top: 10px; color: var(--text-light);">
+                Transparenz ist mir wichtig. Keine versteckten Kosten, nur klare Pakete für eure Erinnerungen.
+            </p>
+            <span></span>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card fade-in">
+                <div class="price-header">
+                    <h3>Mini Session</h3>
+                    <span class="price">299€</span>
+                </div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> 1 Stunde Shooting</li>
+                    <li><i class="fas fa-check"></i> Outdoor Location</li>
+                    <li><i class="fas fa-check"></i> 20 bearbeitete Bilder</li>
+                    <li><i class="fas fa-check"></i> Online-Galerie</li>
+                    <li><i class="fas fa-times" style="color:#ddd;"></i> Drohnenaufnahmen</li>
+                </ul>
+                <a href="#contact" class="btn-outline" style="width:100%; display:block;">Anfragen</a>
+            </div>
+
+            <div class="price-card featured fade-in">
+                <div style="background:var(--primary-color); color:white; padding: 5px; font-size: 0.8rem; text-transform:uppercase; margin: -40px -20px 20px -20px;">Am Beliebtesten</div>
+                <div class="price-header">
+                    <h3>Love Story</h3>
+                    <span class="price">590€</span>
+                </div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> 2-3 Stunden Shooting</li>
+                    <li><i class="fas fa-check"></i> Outfitwechsel möglich</li>
+                    <li><i class="fas fa-check"></i> 50+ bearbeitete Bilder</li>
+                    <li><i class="fas fa-check"></i> Hochwertige Online-Galerie</li>
+                    <li><i class="fas fa-check"></i> Inkl. Anfahrt (20km)</li>
+                </ul>
+                <a href="#contact" class="btn" style="width:100%; display:block;">Jetzt Buchen</a>
+            </div>
+
+            <div class="price-card fade-in">
+                <div class="price-header">
+                    <h3>Wedding Day</h3>
+                    <span class="price">ab 1490€</span>
+                </div>
+                <ul class="price-features">
+                    <li><i class="fas fa-check"></i> Reportage ab 6 Stunden</li>
+                    <li><i class="fas fa-check"></i> Getting Ready & Party</li>
+                    <li><i class="fas fa-check"></i> 300+ bearbeitete Bilder</li>
+                    <li><i class="fas fa-check"></i> Preview in 48 Std.</li>
+                    <li><i class="fas fa-check"></i> Drohnenaufnahmen inklusive</li>
+                </ul>
+                <a href="#contact" class="btn-outline" style="width:100%; display:block;">Anfragen</a>
+            </div>
+        </div>
+
+        <div class="addons fade-in">
+            <h4>Extras & Erweiterungen</h4>
+            <p style="margin-top: 10px; color: var(--text-light);">
+                Verlängerungsstunde: 150€/Std. | Fotoalbum: ab 200€ | After-Wedding-Shoot: 350€
+            </p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact fade-in">
+        <div class="section-title">
+            <p class="accent-text">Let's connect</p>
+            <h2>Schreibt mir</h2>
+            <span></span>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Ich freue mich auf euch!</h3>
+                <br>
+                <p>Erzählt mir von euren Plänen. Je mehr Details ihr mir verratet, desto besser kann ich mich auf euch einstellen.</p>
+                <br>
+                <p><i class="fas fa-map-marker-alt"></i> Verfügbar in ganz Deutschland & Weltweit</p>
+                <p><i class="fas fa-envelope"></i> hallo@heartbeat-moments.de</p>
+                <p><i class="fas fa-phone"></i> +49 123 456789</p>
+                <br>
+                <p style="font-size: 0.9rem; color: #777;">Ich antworte in der Regel innerhalb von 48 Stunden.</p>
+            </div>
+            
+            <form action="https://formspree.io/f/DEINE_FORMSPREE_ID" method="POST">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                    <input type="text" name="name" placeholder="Eure Namen" required>
+                    <input type="email" name="email" placeholder="Eure E-Mail" required>
+                </div>
+                <input type="text" name="date" placeholder="Datum (falls bekannt)">
+                <select name="type">
+                    <option value="" disabled selected>Art des Shootings</option>
+                    <option value="wedding">Hochzeit</option>
+                    <option value="couple">Paarshooting</option>
+                    <option value="family">Familie</option>
+                    <option value="other">Sonstiges</option>
+                </select>
+                <textarea name="message" placeholder="Eure Nachricht an mich... Erzählt mir ein bisschen von euch!" required></textarea>
+                <button type="submit" class="btn">Nachricht senden</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#" class="trigger-modal" data-target="modal-impressum">Impressum</a>
+            <a href="#" class="trigger-modal" data-target="modal-datenschutz">Datenschutzerklärung</a>
+            <a href="https://instagram.com/heartbeat.moments" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Heartbeat Moments. Alle Rechte vorbehalten.
+        </div>
+    </footer>
+
+    <div id="modal-impressum" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Impressum</h2>
+            <br>
+            <p>Angaben gemäß § 5 TMG</p>
+            <br>
+            <p><strong>Heartbeat Moments</strong><br>
+            Vorname Nachname<br>
+            Musterstraße 1<br>
+            12345 Musterstadt</p>
+            <br>
+            <p><strong>Kontakt:</strong><br>
+            Telefon: +49 123 456789<br>
+            E-Mail: hallo@heartbeat-moments.de</p>
+            <br>
+            <p><strong>Umsatzsteuer-ID:</strong><br>
+            Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: DE123456789</p>
+        </div>
+    </div>
+
+    <div id="modal-datenschutz" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Datenschutzerklärung</h2>
+            <br>
+            <h3>1. Datenschutz auf einen Blick</h3>
+            <p>Allgemeine Hinweise: Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen...</p>
+            <br>
+            <h3>2. Hosting</h3>
+            <p>Wir hosten die Inhalte unserer Website bei GitHub Pages.</p>
+            <br>
+            <p><em>(Hier bitte den vollständigen DSGVO Text einfügen)</em></p>
+        </div>
+    </div>
+
+    <div id="cookie-banner">
+        <div>
+            <p><strong>Kekse? Ja, aber nur digitale.</strong> 🍪</p>
+            <p style="font-size: 0.85rem; color: #666;">Wir nutzen Cookies, um dir das beste Erlebnis auf unserer Webseite zu bieten.</p>
+        </div>
+        <div class="cookie-btn-group">
+            <button id="accept-cookies" class="btn" style="padding: 8px 15px; font-size: 0.8rem;">Alles klar!</button>
+            <button id="decline-cookies" class="btn-outline" style="padding: 8px 15px; font-size: 0.8rem;">Nur notwendige</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Navigation Scroll Effect ---
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // --- Mobile Menu ---
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links li');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            burger.classList.toggle('toggle');
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-active');
+            });
+        });
+
+        // --- Fade In Animation ---
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // --- Modals Logic ---
+        const modalTriggers = document.querySelectorAll('.trigger-modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        const modals = document.querySelectorAll('.modal');
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = trigger.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modals.forEach(modal => modal.classList.remove('active'));
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // --- Cookie Banner Logic ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const declineBtn = document.getElementById('decline-cookies');
+
+        if (!localStorage.getItem('cookiesAccepted')) {
+            cookieBanner.style.display = 'flex';
+        } else {
+            cookieBanner.style.display = 'none';
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.style.display = 'none';
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'false'); // Oder entsprechende Logik
+            cookieBanner.style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>
